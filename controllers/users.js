@@ -91,17 +91,22 @@ class userCtrl {
         if (!specificUser) {
             return server(res, 400, 'No user with that email !')
         }
-        if (specificUser) {
+        if (specificUser) { // it's better to not make a lot of ifs
+        /// if (sth is wrong ) do action, return, break function
+        /// without if contiue with default code 
+        /// if (!user.authentication.ok) break
+        /// continue normal code 
+
             if (passwordHash.verify(password, specificUser.password)) {
                 const {
-                    firstname,
+                    firstname, // merge to one operation from here 
                     lastname,
                     PhoneNumber,
                     email,
                     password,
                     isadmin,
                 } = specificUser
-                const user = {
+                const user = { 
                     firstname,
                     lastname,
                     email,
@@ -110,7 +115,7 @@ class userCtrl {
                     status: 'login',
                     isadmin: specificUser.isadmin,
                     id: specificUser.id,
-                }
+                } // to here
                 const token = authentication.encodeToken(user)
                 res.status(200).send({
                     message: 'Logged in successfully',
