@@ -1,4 +1,7 @@
 import moment from 'moment'
+import mongoose from 'mongoose'
+
+mongoose.Promise = global.Promise
 
 class Property {
     constructor() {
@@ -54,4 +57,75 @@ class Property {
     }
 }
 
-export default new Property()
+/*
+const propertySchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  adress: {
+    type: String,
+    required: true,
+  },
+
+  phoneNumber: {
+    type: number,
+    required: true,
+  },
+
+  isAdmin: {
+    type: Boolean,
+    required: true,
+  },
+});
+export default mongoose.model('Cause', causeSchema);
+*/
+//schema for thed database
+
+const propertySchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    firstname: {
+        type: String,
+        required: true,
+    },
+    lastname: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    adress: {
+        type: String,
+        required: false,
+    },
+
+    phoneNumber: {
+        type: Number,
+        required: true,
+    },
+
+    isAdmin: {
+        type: Boolean,
+        required: false,
+    },
+})
+export default mongoose.model('Property', propertySchema)
