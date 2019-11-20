@@ -1,160 +1,203 @@
 import passwordHash from 'password-hash'
 import joi from 'joi'
 import authentication from '../helpers/auth'
-import users from '../models/user'
-import mymodel from '../models/user'
+import model from '../models/user'
 import Schema from '../helpers/inpuValidation'
 import server from '../helpers/response'
 
-class userCtrl {
-    static createUser(req, res) {
-        const {
+import myModel from '../models/user'
+import Users from '../models/user'
+import mongoose from 'mongoose'
+
+import dotenv from 'dotenv'
+dotenv.config()
+
+//create a property
+export function createUser(req, res) {
+    const user = new user({
+        _id: mongoose.Types.ObjectId(),
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        phoneNumber: req.body.phoneNumber,
+    })
+    if (error) {
+        res.status(400).send({ error: error.details[0].message })
+    } else {
+        // generate the id and pass it to a user
+        const id = parseInt(myModel.Users.length) + 1
+        const token = authentication.encodeToken({
             email,
             firstname,
             lastname,
             password,
-            PhoneNumber,
             address,
-            isadmin,
-        } = req.body
-        const { error, value } = joi.validate(
-            {
-                email,
-                firstname,
-                lastname,
-                PhoneNumber,
-                password,
-                address,
-            },
-            Schema.userSchema
-        )
-        if (error) {
-            res.status(400).send({ error: error.details[0].message })
-        } else {
-            // generate the id and pass it to a user
-            const id = parseInt(mymodel.users.length) + 1
-            const token = authentication.encodeToken({
-                email,
-                firstname,
-                lastname,
-                password,
-                address,
-                PhoneNumber,
-                userId: id,
-                status: 'Not login',
-                isadmin: 'false',
-            })
-            const checkemail = mymodel.userEmail(email)
-            if (checkemail) {
-                return server(
-                    res,
-                    400,
-                    'email already exist please use another email!'
-                )
-            }
-            mymodel.signupuser(req.body)
-
-            res.status(201).send({
-                message: 'user registered successfully',
-                user: {
-                    token,
-                    id,
-                    firstname,
-                    lastname,
-                    email,
-                    PhoneNumber,
-                    isadmin,
-                },
-            })
+            PhoneNumber,
+            userId: id,
+            status: 'Not login',
+            isadmin: 'false',
+        })
+        const checkemail = myModel.userEmail(email)
+        if (checkemail) {
+            return server(
+                res,
+                400,
+                'email already exist please use another email!'
+            )
         }
-    }
+        myModel.signupuser(req.body)
 
-    static getuser(req, res) {
-        return server(res, 200, 'List of all users', users)
-    }
-
-    // get user by id
-    static getOneuser(req, res) {
-        const { id } = req.params
-        const user = mymodel.getuser(id)
-        if (user) {
-            return server(res, 200, 'one user found ', user)
-        } else {
-            return server(res, 400, 'No user found with that id')
-        }
-    }
-
-    // Login functions
-    static login(req, res) {
-        const { email, password } = req.body
-        const specificUser = mymodel.userEmail(email)
-        if (!specificUser) {
-            return server(res, 400, 'No user with that email !')
-        }
-        if (specificUser) { // it's better to not make a lot of ifs
-        /// if (sth is wrong ) do action, return, break function
-        /// without if contiue with default code 
-        /// if (!user.authentication.ok) break
-        /// continue normal code 
-
-            if (passwordHash.verify(password, specificUser.password)) {
-                const {
-                    firstname, // merge to one operation from here 
-                    lastname,
-                    PhoneNumber,
-                    email,
-                    password,
-                    isadmin,
-                } = specificUser
-                const user = { 
-                    firstname,
-                    lastname,
-                    email,
-                    PhoneNumber,
-                    password,
-                    status: 'login',
-                    isadmin: specificUser.isadmin,
-                    id: specificUser.id,
-                } // to here
-                const token = authentication.encodeToken(user)
-                res.status(200).send({
-                    message: 'Logged in successfully',
-                    token,
-                    id: specificUser.id,
-                    firstname,
-                    lastname,
-                    PhoneNumber,
-                    email,
-                    status: user.status,
-                    isadmin,
+        return user
+            .save()
+            .then(newUser => {
+                return res.status(201).json({
+                    success: true,
+                    message: 'New user created successfully',
+                    user: newUser,
                 })
-            } else {
-                res.status(400).send({ error: 'incorrect Password !' })
-            }
-        }
+            })
+            .catch(error => {
+                res.status(500).json({
+                    success: false,
+                    message: 'Server error. Please try again.',
+                    error: error.message,
+                })
+            })
     }
+}
 
-    // change password function
-    static resetpassword(req, res) {
-        const { email, newpassword } = req.body
-        const { error, value } = joi.validate(
-            {
+// get single User
+export function getSingleUser(req, res) {
+    const id = req.params.userId
+    Users.findById(id)
+        .then(singleUser => {
+            res.status(200).json({
+                success: true,
+                message: `More on ${singleUser.firstname}`,
+                User: singleUser,
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                success: false,
+                message: 'This user doesnt exist',
+                error: err.message,
+            })
+        })
+}
+
+// update users details
+export function updateUser(req, res) {
+    const id = req.params.userId
+    const updateObject = req.body
+    Users.update({ _id: id }, { $set: updateObject })
+        .exec()
+        .then(() => {
+            res.status(200).json({
+                success: true,
+                message: 'User details are updated',
+                updateUser: updateObject,
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+            })
+        })
+}
+
+// Get all users
+export function getAllUsers(req, res) {
+    Users.find()
+        .select('_id firstname lastname email adress')
+        .then(allUsers => {
+            return res.status(200).json({
+                success: true,
+                message: 'A list of all users',
+                user: allUsers,
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                success: false,
+                message: 'Server error. Please try again.',
+                error: err.message,
+            })
+        })
+}
+
+// Login functions
+
+export function login(req, res) {
+    const { email, password } = req.body
+    const specificUser = model.userEmail(email)
+    if (!specificUser) {
+        return server(res, 400, 'No user with that email !')
+    } else {
+        // it's better to not make a lot of ifs
+        /// if (sth is wrong ) do action, return, break function
+        /// without if contiue with default code
+        /// if (!user.authentication.ok) break
+        /// continue normal code
+
+        if (passwordHash.verify(password, specificUser.password)) {
+            const {
+                firstname, // merge to one operation from here
+                lastname,
+                PhoneNumber,
                 email,
-                newpassword,
-            },
-            Schema.resetpassSchema
-        )
-        if (error) {
-            res.status(400).send({ error: error.details[0].message })
+                password,
+                isadmin,
+            } = specificUser
+            const user = {
+                firstname,
+                lastname,
+                email,
+                PhoneNumber,
+                password,
+                status: 'login',
+                isadmin: specificUser.isadmin,
+                id: specificUser.id,
+            } // to here
+            const token = authentication.encodeToken(user)
+            res.status(200).send({
+                message: 'Logged in successfully',
+                token,
+                id: specificUser.id,
+                firstname,
+                lastname,
+                PhoneNumber,
+                email,
+                status: user.status,
+                isadmin,
+            })
         } else {
-            const getuser = mymodel.userEmail(email)
-            if (getuser) {
-                getuser.password = mymodel.setPassword(newpassword)
-                return server(res, 201, 'password updated  succesfully')
-            }
-            return server(res, 400, "can't find user with that email")
+            res.status(400).send({ error: 'incorrect Password !' })
         }
     }
 }
 
-export default userCtrl
+//change password function
+
+export function resetpassword(req, res) {
+    const { email, newpassword } = req.body
+    const { error, value } = joi.validate(
+        {
+            email,
+            newpassword,
+        },
+        Schema.resetpassSchema
+    )
+    if (error) {
+        res.status(400).send({ error: error.details[0].message })
+    } else {
+        const getuser = model.userEmail(email)
+        if (getuser) {
+            getuser.password = model.setPassword(newpassword)
+            return server(res, 201, 'password updated  succesfully')
+        }
+        return server(res, 400, "can't find user with that email")
+    }
+}

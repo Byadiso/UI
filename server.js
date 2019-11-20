@@ -31,8 +31,7 @@ mongoose
 app.get('/', (req, res) => {
     res.status(200).json({
         status: 200,
-        message:
-            'Welcome to PropertyPro-Lite you can search properties for sale or rent!',
+        message: 'Welcome to PropertyPro-Lite you can sale or rent your needs!',
     })
 })
 
