@@ -1,27 +1,23 @@
 import express from 'express'
-import Upload from 'express-fileupload'
-import userCtrl from '../controllers/users'
-import PropertyCtrl from '../controllers/property'
-import auth from '../helpers/auth'
+import PropertyCtrl, {
+    createproperty,
+    getAllProperties,
+    getSingleProperty,
+    updateProperty,
+    deleteProperty,
+} from '../controllers/property'
+import userctrl, { createUser, getAllUsers, login } from '../controllers/users'
 
 const router = express.Router()
 
-router.use(
-    Upload({
-        createParentPath: true,
-        useTempFiles: true,
-    })
-)
-router.get('/api/v1/users', userCtrl.getuser)
-router.get('/api/v1/property', PropertyCtrl.GetPropertyType)
-router.post('/api/v1/property', auth.UseraccessRequired, PropertyCtrl.createPro)
-router.post('/api/v1/auth/signup', userCtrl.createUser)
-router.post('/api/v1/auth/signin', userCtrl.login)
-router.get('/api/v1/users/:id', userCtrl.getOneuser)
-router.get('/api/v1/property/:id', PropertyCtrl.getOneproperty)
-router.patch('/api/v1/property/:id/sold', PropertyCtrl.markproperty)
-router.patch('/api/v1/user/resetpassword', userCtrl.resetpassword)
-router.patch('/api/v1/property/:id/', PropertyCtrl.updatePro)
-router.delete('/api/v1/property/:id', PropertyCtrl.deletePro)
+router.post('/api/v1/newproperty', createproperty)
+router.get('/api/v1/properties', getAllProperties)
+router.get('/api/v1/:propertyId', getSingleProperty)
+router.patch('/api/v1/:propertyId', updateProperty)
+router.delete('/api/v1/:propertyId', deleteProperty)
+
+router.post('/api/v1/signup', createUser)
+router.get('/api/v1/users', getAllUsers)
+router.post('/api/v1/login', login)
 
 export default router

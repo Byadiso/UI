@@ -1,57 +1,41 @@
-import moment from 'moment'
 
-class Property {
-    constructor() {
-        this.properties = []
-    }
+import mongoose from 'mongoose'
 
-    findall(query = {}) {
-        if (query.type) {
-            const propertytype = this.properties.find(
-                oneproperty => oneproperty.type === query.type
-            )
-            return propertytype
-        }
-    }
+mongoose.Promise = global.Promise
 
-    findOne(PropertyId) {
-        const foundproperty = this.properties.find(
-            property => property.id === parseInt(PropertyId)
-        )
-        return foundproperty
-    }
+//schema for the  database for properties
+ 
+const propertySchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    firstname: {
+        type: String,
+        required: true,
+    },
+    lastname: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    adress: {
+        type: String,
+        required: false,
+    },
 
-    findPro(propertyid) {
-        const property = this.properties.findIndex(
-            property => property.id === parseInt(propertyid)
-        )
-        return property
-    }
+    phoneNumber: {
+        type: Number,
+        required: true,
+    },
 
-    deletePro(id) {
-        const findproperty = this.findOne(id)
-        const indexof = this.properties.indexOf(findproperty)
-        const deletedproperty = this.properties.splice(indexof, 1)
-        return deletedproperty
-    }
-
-    createPro(data, userInfo, url) {
-        const inserProp = {
-            id: this.properties.length + 1,
-            created_On: moment.utc().format('DD-MM-YYYY HH:mm:ss'),
-            owner: userInfo.id,
-            ownerPhoneNumber: userInfo.PhoneNumber,
-            ownerEmail: userInfo.email,
-            status: 'available',
-            type: data.type,
-            city: data.city,
-            address: data.address,
-            price: data.price,
-            image_url: url.image_url,
-        }
-        this.properties.push(inserProp)
-        return inserProp
-    }
-}
-
-export default new Property()
+    isAdmin: {
+        type: Boolean,
+        required: false,
+    },
+})
+export default mongoose.model('Property', propertySchema)
