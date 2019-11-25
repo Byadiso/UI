@@ -1,4 +1,7 @@
+
 [![Test Coverage](https://api.codeclimate.com/v1/badges/63c0323234f1583783b8/test_coverage)](https://codeclimate.com/github/Byadiso/UI/test_coverage)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/maintainability)](https://codeclimate.com/github/Byadiso/UI/maintainability)
 
 
 
