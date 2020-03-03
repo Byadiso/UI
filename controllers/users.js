@@ -1,76 +1,95 @@
 import passwordHash from 'password-hash'
 import joi from 'joi'
 import authentication from '../helpers/auth'
-import model from '../models/user'
 import Schema from '../helpers/inpuValidation'
 import server from '../helpers/response'
-
-import myModel from '../models/user'
-import Users from '../models/user'
+import User from '../models/user'
 import mongoose from 'mongoose'
+import db from '../database/db'
 
 import dotenv from 'dotenv'
 dotenv.config()
 
-//create a property
-export function createUser(req, res) {
-    const user = new user({
-        _id: mongoose.Types.ObjectId(),
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
-        phoneNumber: req.body.phoneNumber,
-    })
-    if (error) {
-        res.status(400).send({ error: error.details[0].message })
-    } else {
-        // generate the id and pass it to a user
-        const id = parseInt(myModel.Users.length) + 1
-        const token = authentication.encodeToken({
-            email,
-            firstname,
-            lastname,
-            password,
-            address,
-            PhoneNumber,
-            userId: id,
-            status: 'Not login',
-            isadmin: 'false',
-        })
-        const checkemail = myModel.userEmail(email)
-        if (checkemail) {
-            return server(
-                res,
-                400,
-                'email already exist please use another email!'
-            )
-        }
-        myModel.signupuser(req.body)
+//create a user
 
-        return user
-            .save()
-            .then(newUser => {
-                return res.status(201).json({
-                    success: true,
-                    message: 'New user created successfully',
-                    user: newUser,
-                })
-            })
-            .catch(error => {
-                res.status(500).json({
-                    success: false,
-                    message: 'Server error. Please try again.',
-                    error: error.message,
-                })
-            })
-    }
-}
+export function createUser(req, res) {
+    const user = new User({
+                _id: mongoose.Types.ObjectId(),
+                firstname: req.body. firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: req.body.password,
+                phone: req.body.phone,
+               
+            }) 
+            db.collection('users').insertOne(user, function (err, collection) {
+                if (err) throw err
+                console.log(user)
+                
+            }) 
+                
+            return res.redirect('/public/pages/property-user2.html')
+            
+            }
+
+// export function createUser(req, res) {
+//     const user = new user({
+//         _id: mongoose.Types.ObjectId(),
+//         firstname: req.body.firstname,
+//         lastname: req.body.lastname,
+//         email: req.body.email,
+//         password: req.body.password,
+//         phoneNumber: req.body.phoneNumber,
+//     })
+//     if (error) {
+//         res.status(400).send({ error: error.details[0].message })
+//     } else {
+//         // generate the id and pass it to a user
+//         const id = parseInt(myModel.Users.length) + 1
+//         const token = authentication.encodeToken({
+//             email,
+//             firstname,
+//             lastname,
+//             password,
+//             address,
+//             PhoneNumber,
+//             userId: id,
+//             status: 'Not login',
+//             isadmin: 'false',
+//         })
+//         const checkemail = myModel.userEmail(email)
+//         if (checkemail) {
+//             return server(
+//                 res,
+//                 400,
+//                 'email already exist please use another email!'
+//             )
+//         }
+//         myModel.signupuser(req.body)
+
+//         return user
+//             .save()
+//             .then(newUser => {
+//                 return res.status(201).json({
+//                     success: true,
+//                     message: 'New user created successfully',
+//                     user: newUser,
+//                 })
+//             })
+//             .catch(error => {
+//                 res.status(500).json({
+//                     success: false,
+//                     message: 'Server error. Please try again.',
+//                     error: error.message,
+//                 })
+//             })
+//     }
+// }
 
 // get single User
 export function getSingleUser(req, res) {
     const id = req.params.userId
-    Users.findById(id)
+    User.findById(id)
         .then(singleUser => {
             res.status(200).json({
                 success: true,
@@ -91,7 +110,7 @@ export function getSingleUser(req, res) {
 export function updateUser(req, res) {
     const id = req.params.userId
     const updateObject = req.body
-    Users.update({ _id: id }, { $set: updateObject })
+    User.update({ _id: id }, { $set: updateObject })
         .exec()
         .then(() => {
             res.status(200).json({
@@ -104,13 +123,14 @@ export function updateUser(req, res) {
             res.status(500).json({
                 success: false,
                 message: 'Server error. Please try again.',
+                error: err
             })
         })
 }
 
 // Get all users
 export function getAllUsers(req, res) {
-    Users.find()
+    User.find()
         .select('_id firstname lastname email adress')
         .then(allUsers => {
             return res.status(200).json({

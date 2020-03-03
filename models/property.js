@@ -7,35 +7,38 @@ mongoose.Promise = global.Promise
  
 const propertySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    firstname: {
+    owner: {
         type: String,
         required: true,
     },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    adress: {
+    city: {
         type: String,
         required: false,
     },
-
-    phoneNumber: {
+    price: {
         type: Number,
         required: true,
     },
-
-    isAdmin: {
-        type: Boolean,
+    state: {
+        type: String,
         required: false,
     },
+ 
+    phone: {
+        type: Number,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: false,
+    },
+    dateCreated: {
+        type: String,
+        required: false,
+    },
+    url: {
+        type: String,
+        required: false,
+    }
 })
 export default mongoose.model('Property', propertySchema)

@@ -75,7 +75,7 @@ font-weight: 200;
 #banner{
   border-bottom: 30px solid white;
 }
-.header-text{
+#header-text{
   color:black;
   text-align: center;
 }
@@ -178,17 +178,6 @@ margin-bottom: 10px;
   box-sizing: border-box;
 }
 
-.column-grid {
-  float: left;
-  width: 406px;
-  padding: 10px;
-  height: 300px; 
-  border-radius: 5px;
-  border: 1px solid white;
-  margin: 5px;
-  background-color:rgba(222,222,222, 0.4);
-
-}
 
 .grid:after {
   content: "";
@@ -399,23 +388,30 @@ margin-bottom: 10px;
   text-align: center;
   font-size: 16px;
   }
-
+/* 
   .grid .column-grid a{
     text-decoration: none;
-  }
+  } */
 
 
   /* user property */
 
-
-  .column-grid-Property{
+  .column-grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
     
-    margin-right: 50px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    width:300px;
-    height: 350px;
+  }
+  .column-grid-Property{    
+    
+    width:400px;
+    height: 550px;
     float: left;  
+    padding: 50px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin: 10px;
+    background-color:rgba(222,222,222, 0.4);
    
   }
   .grid-property{
@@ -439,5 +435,12 @@ margin-bottom: 10px;
   border-radius: 20px;
   
 }
+/* for my updated list from selling property 
+ */
 
-/* proeprty button*/
+.imgCreated{
+  display: block;
+  border: 1px solid white;
+  border-radius: 40px;
+}
+ 

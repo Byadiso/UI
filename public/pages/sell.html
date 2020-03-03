@@ -1,92 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
- <meta>
-         <link rel="stylesheet" type="text/css" href="../css/style-signup-signin-sell.css">
-         <title> PropertyPro LITE</title>
-         <link rel="icon" type="image/ico" href="../image/bar-icon.png" />
+  <meta>
+  <link rel="stylesheet" type="text/css" href="../css/style-signup-signin-sell.css">
+  <title> PropertyPro LITE</title>
+  <link rel="icon" type="image/ico" href="../image/bar-icon.png" />
 
 </head>
+
 <body>
 
   <a class="sell" href="sell.html"><img src="../image/header.png" height="80px" width="200px"></a>
 
 
-<div class="topnav">
+  <div class="topnav">
 
-  <a href="../index.html"><strong>PROPERTY FOR RENT</strong></a>
+    <a href="../index.html"><strong>PROPERTY FOR RENT</strong></a>
 
-   <a class="active" href="sell.html"><strong>SELL A PROPERTY</strong></a>
+    <a class="active" href="sell.html"><strong>SELL A PROPERTY</strong></a>
 
-<div class="login-container">
-    <form action="post">
+    <div class="login-container">
+      <form action="post">
 
-      <a  class="register" href="login.html">Sign In </a>
-      <a  href="sign_up.html">Sign up</a>
-    </form>
-  </div>
-</div>
-
-
-<div class="login">
-        <div class="login-screen">
-            
-            <div class="login-form">
-                <div class="control-group">
-                <input type="text" class="login-field" value="" placeholder="Owner" id="login-name">
-                
-                </div>
-
-                <div class="control-group">
-                <input type="text" class="login-field" value="" placeholder="Price" id="login-pass">
-                <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                 <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="State" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-
-                 <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="City" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                 <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="Address" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                 <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="Type" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                 <div class="control-group">
-                     <input type="password" class="login-field" value="" placeholder="Created date" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                 <div class="control-group">
-                     <input type="password" class="login-field" value="" placeholder="Ex:https:wwww.google.com" id="login-pass">
-                     <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
-
-                <a class="btn btn-primary btn-large btn-block" href="#">Submit</a>
-                
-            </div>
-        </div>
+        <a class="register" href="login.html">Sign In </a>
+        <a href="sign_up.html">Sign up</a>
+      </form>
     </div>
+  </div>
+
+
+  <div class="login">
+    <div class="login-screen">
+
+      <div class="login-form">
+
+        <form action="/api/v1/property" method="POST" id="sell" class="control-group">
+
+          <input type="text" class="login-field" value="" placeholder="owner" type="text" name="owner" id="login-name">
+          <input type="text" class="login-field" value="" placeholder="price" type="text" name="price" id="login-name">
+          <input type="text" class="login-field" value="" placeholder="state" type="text" name="state" id="login-pass">
+          <input type="text" class="login-field" value="" placeholder="city" type="text" name="city" id="login-pass">
+          <input type="text" class="login-field" value="" placeholder="phone" type="number" name="phone"
+            id="login-pass">
+          <input type="text" class="login-field" value="" placeholder="Address" type="text" name="address"
+            id="login-pass">
+          <input type="url" class="login-field" value="" placeholder="url" type="url" name="url" id="login-pass">
+          <input type="text" class="login-field" value="" placeholder="dateCreated" type="text" name="dateCreated"
+            id="login-pass">
+          <br>
+          <input type="submit" submit="fetchUserData()" id="submit">
+        </form>
+
+      </div>
+    </div>
+  </div>
   </form>
-</div>
+  </div>
 
 
-<div id="footer">
-&copy; 2019  Designed by BYAMUNGU desire || Andela Developer Challenge
- </div> 
+  <div id="footer">
+    &copy; 2019 Designed by BYAMUNGU desire || Andela Developer Challenge
+  </div>
 
 
 
 </body>
+
 </html>
