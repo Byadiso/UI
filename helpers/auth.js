@@ -22,14 +22,18 @@ const decodeToken = token => {
 }
 // Access token required for a user
 const UseraccessRequired = (req, res, next) => {
-    const { token } = req.headers
+    const {
+        token
+    } = req.headers
     if (!token) {
         return server(res, 400, 'Token is needed to get access ')
     }
     const now = moment().unix()
     const decodedToken = decodeToken(token)
     if (now > decodedToken.expiration) {
-        res.status(400).send({ error: 'Oops, Your is Token expired' })
+        res.status(400).send({
+            error: 'Oops, Your Token is  expired'
+        })
     } else {
         req.body.userId = decodedToken.sub.userId
         req.body.isadmin = decodedToken.sub.isadmin
@@ -45,4 +49,7 @@ const UseraccessRequired = (req, res, next) => {
     }
 }
 
-export default { UseraccessRequired, encodeToken }
+export default {
+    UseraccessRequired,
+    encodeToken
+}

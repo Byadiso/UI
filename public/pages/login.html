@@ -42,22 +42,22 @@
                 <h1>Sign In</h1>
             </div>
 
-            <div class="login-form">
-                <div class="control-group">
-                <input type="text" class="login-field" value="" placeholder="username" id="login-name">
-                <label class="login-field-icon fui-user" for="login-name"></label>
+
+            <form action="/api/v1/login" method="GET">
+               <div class="login-form">
+                  <div class="control-group">
+                     <input type="text" class="login-field" value="" placeholder="username" id="login-name">
+                     <label class="login-field-icon fui-user" for="login-name"></label>
                 </div>
 
                 <div class="control-group">
-                <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
-                <label class="login-field-icon fui-lock" for="login-pass"></label>
+                   <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
+                  <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
 
-               
-                <form >
-                   
-                      <a class="btn btn-primary btn-large btn-block"  onclick = 'validate()' href="user-property.html" >Submit</a>
-                </form>
+               <input type="submit" class="submit-btn">  
+                
+            </form>
                 <a class="login-link" href="#">Lost your password?</a>
             </div>
         </div>

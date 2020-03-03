@@ -4,36 +4,49 @@
 
 import express from 'express'
 import router from './routes/routes'
-import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+
+
 
 //set up dependencies
 
 const app = express()
 
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
-app.use(bodyParser.json())
+app.use(express.urlencoded({
+    extended: false
+}))
+app.use(express.json());
+app.use(bodyParser.json());
 
-app.use(router)
+app.use(router);
 
-// set up mongoose
-mongoose
-    .connect('mongodb://localhost/properties')
-    .then(() => {
-        console.log('Database connected')
-    })
-    .catch(() => {
-        console.log('Error connecting to database')
-    })
+// set header
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+  });
+
+app.use(express.static(__dirname))
+
+// set static pages
+
+app.use(express.static('public/pages'))
 
 // set up route
-app.get('/', (req, res) => {
-    res.status(200).json({
-        status: 200,
-        message: 'Welcome to PropertyPro-Lite you can sale or rent your needs!',
-    })
+
+app.get('/', (_req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
+        .status(200)
+        .json({
+            status: 200,
+            message: 'Welcome to PropertyPro-Lite you can sale or rent your needs!',
+        })
 })
+
+
 
 app.use('*', (req, res) => {
     res.status(400).json({
@@ -41,6 +54,27 @@ app.use('*', (req, res) => {
         message: "Sorry this router doesn't exist !",
     })
 })
+
+
+
+//-----------------For Front-End---------------------//
+
+//for render index
+
+app.get('/', function (req, res) {
+    res.set({
+        'Access-control-Allow-Origin': '*'
+    });
+    return res.redirect('/index.html');
+})
+
+// for render sign-up
+
+
+
+// for render login
+
+
 
 const port = process.env.PORT || 3000
 
