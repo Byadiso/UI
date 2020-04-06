@@ -28,7 +28,7 @@ export function createUser(req, res) {
                 
             }) 
                 
-            return res.redirect('/public/pages/property-user2.html')
+            return res.redirect('/public/pages/property_1.html')
             
             }
 

@@ -9,7 +9,7 @@ import PropertyCtrl, {
 
 import userctrl, {
     createUser,
-    getAllUsers,
+    getAllUsers,getSingleUser,
     login
 } from '../controllers/users'
 
@@ -23,6 +23,7 @@ router.delete('/api/v1/property/:Id', deleteProperty)
 
 router.post('/api/v1/signup', createUser)
 router.get('/api/v1/users', getAllUsers)
+router.get('/api/v1/users/:id', getSingleUser)
 router.post('/api/v1/login', login)
 
 export default router

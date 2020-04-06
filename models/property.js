@@ -33,9 +33,10 @@ const propertySchema = new mongoose.Schema({
         required: false,
     },
     dateCreated: {
-        type: String,
-        required: false,
+        type: Date,
+        default: Date.now,
     },
+   
     url: {
         type: String,
         required: false,

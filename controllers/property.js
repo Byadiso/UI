@@ -9,7 +9,7 @@ dotenv.config()
 export function createproperty(req, res) {
 
     const property = new Property({
-                _id: mongoose.Types.ObjectId(),
+                // _id: mongoose.Types.ObjectId(),
                 owner: req.body.owner,
                 price: req.body.price,
                 state: req.body.state,
@@ -31,7 +31,7 @@ export function createproperty(req, res) {
 
 // Get all propertieis
 export function getAllProperties(req, res) {
-    Property.find()
+    Property.find().sort({ dateCreated: 'asc' })
         .select('_id owner price city address state url phone dateCreated')
         .then(allProperties => {
             return res.status(200).json({
@@ -50,13 +50,13 @@ export function getAllProperties(req, res) {
 }
 
 // get single property
-export function getSingleProperty(req, res) {
-    // const _id = req.params.propertyId
-    Property.findOne(req.params.id)
-        .then(singleProperty => {
+export  function getSingleProperty(req, res) {  
+    // const id = req.params.propertyId
+           Property.findOne(res, req.params.id) 
+    .then(singleProperty => {
             res.status(200).json({
                 success: true,
-                message: `More on ${singleProperty}`,
+                message: `More on ${singleProperty.owner}`,
                 Property: singleProperty,
             })
         })
