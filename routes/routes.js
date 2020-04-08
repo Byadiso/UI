@@ -17,9 +17,9 @@ const router = express.Router();
 
 router.post('/api/v1/property', createproperty)
 router.get('/api/v1/property', getAllProperties)
-router.get('/api/v1/property/:Id', getSingleProperty)
-router.put('/api/v1/property/:Id', updateProperty)
-router.delete('/api/v1/property/:Id', deleteProperty)
+router.get('/api/v1/property/:id', getSingleProperty)
+router.put('/api/v1/property/:id', updateProperty)
+router.delete('/api/v1/property/:id', deleteProperty)
 
 router.post('/api/v1/signup', createUser)
 router.get('/api/v1/users', getAllUsers)
