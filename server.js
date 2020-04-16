@@ -73,8 +73,21 @@ app.get('/', function (req, res) {
 
 
 // for render login
-
-
+  app.get('/login', function (req, res) {
+    res.set({
+        'Access-control-Allow-Origin': '*'
+    });
+    return res.redirect('/login.html');
+})
+//for index page
+app.get('/index', (_req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
+        .status(200)
+        .json({
+            status: 200,
+            message: 'Welcome to PropertyPro-Lite you can sale or rent your needs!',
+        })
+})
 
 const port = process.env.PORT || 3000
 

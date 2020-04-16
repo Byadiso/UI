@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="../css/style-signup-signin-sell.css">
         <title> PropertyPro LITE</title>
         <link rel="icon" type="image/ico" href="../image/bar-icon.png" />
-</head>
+        
 
 <body>
 
@@ -22,9 +22,9 @@
 <div class="topnav">
 
 
-  <a href="../index.html"><strong>PROPERTY FOR RENT</strong></a>
+  <a href="../index.html"><strong>HOME </strong></a>
 
-   <a class="register" href="sell.html"><strong>SELL A PROPERTY</strong></a>
+   <!-- <a class="register" href="sell.html"><strong>SELL A PROPERTY</strong></a> -->
 
 
 <div class="login-container">
@@ -43,22 +43,23 @@
             </div>
 
 
-            <form action="/api/v1/login" method="GET">
+            <form action="/api/v1/login" method="POST" id="formLogin">
                <div class="login-form">
                   <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="username" id="login-name">
+                     <input type="text" class="login-field" value="" placeholder="username" name="email" id="login-name">
                      <label class="login-field-icon fui-user" for="login-name"></label>
                 </div>
 
                 <div class="control-group">
-                   <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
+                   <input type="password" class="login-field" value="" placeholder="password" name="password" id="login-pass">
                   <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
 
-               <input type="submit" class="submit-btn">  
+               <input type="submit" class="submit-btn">   
                 
             </form>
-                <a class="login-link" href="#">Lost your password?</a>
+            <div class="incorrect"> </div>
+                <a class="login-link" href="#">Lost your password?</a> <p>or</p><a class="login-link" href="./sign_up.html">Register</a>
             </div>
         </div>
     </div>
@@ -70,27 +71,31 @@
 </body>
 
 <script type="text/javascript">
-     var usersName = ["Desire","Mamady"];
-     var usersPass = [123456, 123456];
-     function validate(){
-       const username = document.getElementById('login-name').value;
-       const password = document.getElementById('login-pass').value;
-       
-      
-        for (var i = 0; i < usersName.length; i++) {
-         if (usersName[i] == username && usersPass[i] == password) {
-           alert(username);
-                      alert("you have successfully log in the property page");
-           return;
-         }
-         else{
-          alert("Username doesn't exist ");
-           return;
-         }
-           
-      }
-   
-     }
+
+   document.addEventListener('DOMContentLoaded', ()=>{ 
+
+const form = document.getElementById('formLogin');
+
+  form.addEventListener('submit', fetchLogin);
+
+      function  fetchLogin() {                
+         fetch('http://localhost:3000/api/v1/login')
+          .then((resp) =>resp.json())
+          .then((data) => renderMsg(data))
+          console.log(data)
+        }
+        
+        function renderMsg(data){
+          const incorrect = document.getElementsByClassName('incorrect');          
+          incorrect.className = 'err';
+          incorrect.innerHTML = data.message;
+          console.log(data.message)
+
+        }
+
+    fetchLogin();
+
+      })
 </script>
 
 </html>

@@ -11,9 +11,9 @@ const encodeToken = user => {
             .unix(),
         iat: moment().unix(),
         sub: user,
-    }
+            }
     const token = jwt.encode(payload, process.env.SECRET_KEY)
-    return token
+        return token
 }
 
 const decodeToken = token => {

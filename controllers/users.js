@@ -6,31 +6,42 @@ import server from '../helpers/response'
 import User from '../models/user'
 import mongoose from 'mongoose'
 import db from '../database/db'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken';
 
 import dotenv from 'dotenv'
 dotenv.config()
 
 //create a user
 
+
+
+
+
 export function createUser(req, res) {
+    bcrypt.hash(req.body.password, 10).then(
+        (hash) =>{
     const user = new User({
                 _id: mongoose.Types.ObjectId(),
                 firstname: req.body. firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
-                password: req.body.password,
+                password: hash,
                 phone: req.body.phone,
                
-            }) 
+            })
+            
+  
             db.collection('users').insertOne(user, function (err, collection) {
                 if (err) throw err
                 console.log(user)
                 
             }) 
                 
-            return res.redirect('/public/pages/property_1.html')
+            return res.redirect('/public/pages/login.html')
             
-            }
+            })
+        }
 
 // export function createUser(req, res) {
 //     const user = new user({
@@ -85,6 +96,7 @@ export function createUser(req, res) {
 //             })
 //     }
 // }
+
 
 // get single User
 export function getSingleUser(req, res) {
@@ -149,55 +161,104 @@ export function getAllUsers(req, res) {
 }
 
 // Login functions
-
 export function login(req, res) {
-    const { email, password } = req.body
-    const specificUser = model.userEmail(email)
-    if (!specificUser) {
-        return server(res, 400, 'No user with that email !')
-    } else {
-        // it's better to not make a lot of ifs
-        /// if (sth is wrong ) do action, return, break function
-        /// without if contiue with default code
-        /// if (!user.authentication.ok) break
-        /// continue normal code
-
-        if (passwordHash.verify(password, specificUser.password)) {
-            const {
-                firstname, // merge to one operation from here
-                lastname,
-                PhoneNumber,
-                email,
-                password,
-                isadmin,
-            } = specificUser
-            const user = {
-                firstname,
-                lastname,
-                email,
-                PhoneNumber,
-                password,
-                status: 'login',
-                isadmin: specificUser.isadmin,
-                id: specificUser.id,
-            } // to here
-            const token = authentication.encodeToken(user)
-            res.status(200).send({
-                message: 'Logged in successfully',
-                token,
-                id: specificUser.id,
-                firstname,
-                lastname,
-                PhoneNumber,
-                email,
-                status: user.status,
-                isadmin,
-            })
-        } else {
-            res.status(400).send({ error: 'incorrect Password !' })
-        }
-    }
+  User.findOne({ email: req.body.email}).then((user) => {
+      if(!user){
+          return res.status(401).json({
+              error: new Error ('User not found!')
+          });
+      }
+      bcrypt.compare(req.body.password, user.password).then(
+          (valid) => {
+              if (!valid){
+                  return res.status(401).json({
+                      error: new Error('Incorrect password!'),
+                      message:'Plz use a correct email or password',
+                  });
+                   
+              } 
+              const token = jwt.sign(
+                  { userId: user._id},
+                  'RANDOM_TOKEN_SECRET',
+                  { expiresIn: '24h'});
+                    return res.redirect('/public/pages/property_1.html')
+                    
+            //         .res.status(200).json({
+            //       userId: user._id,
+            //       token: token,
+            //       message:'Welcome beautiful user'
+            //   });
+               
+            
+          }
+      ).catch(
+          (error) => {
+              res.status(500).json({
+                  error: error
+              });
+          }
+      );
+  })
+  .catch(
+      (error) => {
+          res.status(500).json({
+              error: error
+          });
+      });  
 }
+
+
+
+
+
+// export function login(req, res) {
+//     const { email, password } = req.body
+//     const specificUser = model.userEmail(email)
+//     if (!specificUser) {
+//         return server(res, 400, 'No user with that email !')
+//     } else {
+//         // it's better to not make a lot of ifs
+//         /// if (sth is wrong ) do action, return, break function
+//         /// without if contiue with default code
+//         /// if (!user.authentication.ok) break
+//         /// continue normal code
+
+//         if (passwordHash.verify(password, specificUser.password)) {
+//             const {
+//                 firstname, // merge to one operation from here
+//                 lastname,
+//                 PhoneNumber,
+//                 email,
+//                 password,
+//                 isadmin,
+//             } = specificUser
+//             const user = {
+//                 firstname,
+//                 lastname,
+//                 email,
+//                 PhoneNumber,
+//                 password,
+//                 status: 'login',
+//                 isadmin: specificUser.isadmin,
+//                 id: specificUser.id,
+//             } // to here
+//             const token = authentication.encodeToken(user)
+//             res.status(200).send({
+//                 message: 'Logged in successfully',
+//                 token,
+//                 id: specificUser.id,
+//                 firstname,
+//                 lastname,
+//                 PhoneNumber,
+//                 email,
+//                 status: user.status,
+//                 isadmin,
+//             })
+//         } else {
+//             res.status(400).send({ error: 'incorrect Password !' })
+//         }
+//     }
+// }
 
 //change password function
 

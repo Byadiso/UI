@@ -238,28 +238,10 @@ margin-bottom: 10px;
   box-shadow: none;
   transition: 0.25s;
   display: inline;
-  width:250px;
+  width:100px;
   margin: 0 auto;
 }
 
-/* btn buying*/
-.btn-buying {
-  border: 2px solid white;
-  padding-right:100px;
-  background:rgb(52, 172, 219);
-  color: #ffffff;
-  font-size: 17px;
-  line-height: 25px;
-  padding: 7px 7px 7px 7px;
-  text-decoration: none;
-  text-shadow: none;
-  border-radius: 3px;
-  box-shadow: none;
-  transition: 0.25s;
-  display: inline;
-  width:250px;
-  margin: 0 auto;
-}
 
 .btn-delete {
   border: 2px solid white;
@@ -274,27 +256,10 @@ margin-bottom: 10px;
   box-shadow: none;
   transition: 0.25s;
   display: inline;
-  width:250px;
+  width:100px;
   margin: 0 auto;
 }
 
-
-.btn-request {
-  border: 2px solid white;
-  background: rgb(52, 172, 219);
-  color: #ffffff;
-  font-size: 17px;
-  line-height: 25px;
-  padding: 7px 7px 7px 7px;
-  text-decoration: none;
-  text-shadow: none;
-  border-radius: 3px;
-  box-shadow: none;
-  transition: 0.25s;
-  display: inline;
-  width: 250px;
-  margin: 0 auto;
-}
 
 /*filter for advert*/
 
@@ -423,10 +388,10 @@ margin-bottom: 10px;
   }
   .column-grid-Property{    
     
-    width:355px;
+    width:303px;
     height: 380px;
     float: left;  
-    padding: 50px;
+    padding: 15px;
     border-radius: 5px;
     border: 1px solid white;
     margin: 10px;
@@ -506,4 +471,8 @@ transform: rotateY(180deg);
 }
 .flip-box-back:hover{
   cursor: pointer;
+}
+
+.hide{
+display:none
 }

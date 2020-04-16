@@ -12,6 +12,7 @@ import userctrl, {
     getAllUsers,getSingleUser,
     login
 } from '../controllers/users'
+import auth from '../helpers/auth'
 
 const router = express.Router();
 
@@ -25,5 +26,10 @@ router.post('/api/v1/signup', createUser)
 router.get('/api/v1/users', getAllUsers)
 router.get('/api/v1/users/:id', getSingleUser)
 router.post('/api/v1/login', login)
+router.get('/api/v1/login',login)
+
+
+
+
 
 export default router
