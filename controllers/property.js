@@ -18,7 +18,7 @@ export function createproperty(req, res) {
                 phone: req.body.phone,
                 address: req.body.address,
                 url: req.body.url,
-                dateCreated: req.body.dateCreated,
+                dateCreated: new Date().tost,
             }) 
             db.collection('properties').insertOne(property, function (err, collection) {
                 if (err) throw err
@@ -37,7 +37,7 @@ export function getAllProperties(req, res) {
         .then(allProperties => {
             return res.status(200).json({
                 success: true,
-                message: 'A list of all properties ',
+                message: 'A list of all properties',
                 Property: allProperties,
             })
         })
@@ -51,15 +51,15 @@ export function getAllProperties(req, res) {
 }
 
 // get single property
-export  function getSingleProperty(req, res) { 
-       
+export  function getSingleProperty(req, res) {        
         Property.findById({ _id: req.params.id }) 
     .then(singleProperty => {
-            res.status(200).json({
+           return res.status(200).json({
                 success: true,
                 message: `More on ${singleProperty}`,
                 Property: singleProperty,
-            })
+            }).redirect('/public/pages/singleProperty.html');
+              
         })
         .catch(err => {
             res.status(500).json({
@@ -90,6 +90,7 @@ export function updateProperty(req, res) {
             message: 'Property  is updated',
             Property: property,
           });
+          return res.redirect('/public/pages/updated.html');
         }
       )
         .catch(err => {
@@ -104,11 +105,13 @@ export function updateProperty(req, res) {
 // delete a property
 export function deleteProperty(req, res) {    
     Property.deleteOne({_id: req.params.id})      
-        .then(() =>
+        .then(() => {
             res.status(200).json({
                 success: true,
                 message:'property deleted well',               
-            })
+            });
+            return res.redirect('/public/pages/property_1.html');            
+          }
         )
         .catch(err =>
             res.status(500).json({

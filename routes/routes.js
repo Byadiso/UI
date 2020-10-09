@@ -29,7 +29,4 @@ router.post('/api/v1/login', login)
 router.get('/api/v1/login',login)
 
 
-
-
-
 export default router

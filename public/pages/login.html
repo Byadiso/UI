@@ -45,20 +45,26 @@
 
             <form action="/api/v1/login" method="POST" id="formLogin">
                <div class="login-form">
+                <div id="usernameErr"></div>
                   <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="username" name="email" id="login-name">
-                     <label class="login-field-icon fui-user" for="login-name"></label>
+                     <input type="text" class="login-field"  placeholder="username" name="email" id="email">
+                     
                 </div>
-
+                <div id="emailErr"></div>
                 <div class="control-group">
-                   <input type="password" class="login-field" value="" placeholder="password" name="password" id="login-pass">
-                  <label class="login-field-icon fui-lock" for="login-pass"></label>
+                   <input type="password" class="login-field" placeholder="password" name="password"  id="password">
                 </div>
+                <div id="passwordErr"></div>
+                
+                <div><input type="checkbox" id="checkbox" onclick="togglePassword()">Show Password</div>
+				      	<div id="password2Err"></div>
 
-               <input type="submit" class="submit-btn">   
+                <button id="loginBtn">login</button>
+               <!-- <input type="submit" class="submit-btn">    -->
+               <div id="incorrect"> </div>
                 
             </form>
-            <div class="incorrect"> </div>
+           
                 <a class="login-link" href="#">Lost your password?</a> <p>or</p><a class="login-link" href="./sign_up.html">Register</a>
             </div>
         </div>
@@ -70,32 +76,18 @@
 
 </body>
 
-<script type="text/javascript">
+<script >
 
-   document.addEventListener('DOMContentLoaded', ()=>{ 
+        function togglePassword() {
+                        const input = document.getElementById("password");
+                        if (input.type === "password") {
+                            input.type = "text";
+                        } else {
+                            input.type = "password";
+                        }
+                    }
 
-const form = document.getElementById('formLogin');
-
-  form.addEventListener('submit', fetchLogin);
-
-      function  fetchLogin() {                
-         fetch('http://localhost:3000/api/v1/login')
-          .then((resp) =>resp.json())
-          .then((data) => renderMsg(data))
-          console.log(data)
-        }
-        
-        function renderMsg(data){
-          const incorrect = document.getElementsByClassName('incorrect');          
-          incorrect.className = 'err';
-          incorrect.innerHTML = data.message;
-          console.log(data.message)
-
-        }
-
-    fetchLogin();
-
-      })
 </script>
+<script src="../js/login.js"></script>
 
 </html>

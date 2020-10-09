@@ -16,30 +16,36 @@ dotenv.config()
 
 
 
-
-
 export function createUser(req, res) {
     bcrypt.hash(req.body.password, 10).then(
         (hash) =>{
     const user = new User({
                 _id: mongoose.Types.ObjectId(),
-                firstname: req.body. firstname,
+                firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: hash,
-                phone: req.body.phone,
-               
-            })
-            
-  
-            db.collection('users').insertOne(user, function (err, collection) {
-                if (err) throw err
-                console.log(user)
-                
-            }) 
-                
-            return res.redirect('/public/pages/login.html')
-            
+                phone: req.body.phone,               
+            });
+
+            if(!user){
+                return res.status(401).json({
+                    error: new Error('Plz enter details'),
+                    message: "Plz enter details"
+                });
+            } else {
+                db.collection('users').insertOne(user, function (err, collection) {
+                    if (err) throw err   
+                    console.log(user)                 
+               })
+             
+                return res.redirect('/public/pages/property_1.html');
+              
+    
+            }
+       
+                    
+
             })
         }
 
@@ -162,54 +168,69 @@ export function getAllUsers(req, res) {
 
 // Login functions
 export function login(req, res) {
-  User.findOne({ email: req.body.email}).then((user) => {
-      if(!user){
-          return res.status(401).json({
-              error: new Error ('User not found!')
-          });
-      }
-      bcrypt.compare(req.body.password, user.password).then(
-          (valid) => {
-              if (!valid){
-                  return res.status(401).json({
-                      error: new Error('Incorrect password!'),
-                      message:'Plz use a correct email or password',
-                  });
-                   
-              } 
-              const token = jwt.sign(
-                  { userId: user._id},
-                  'RANDOM_TOKEN_SECRET',
-                  { expiresIn: '24h'});
-                    return res.redirect('/public/pages/property_1.html')
-                    
-            //         .res.status(200).json({
-            //       userId: user._id,
-            //       token: token,
-            //       message:'Welcome beautiful user'
-            //   });
-               
+    User.findOne({ email: req.body.email}).then((user) => {
+        const {email,password} = req.body
+        if (!email && !password ){
             
-          }
-      ).catch(
-          (error) => {
-              res.status(500).json({
-                  error: error
-              });
-          }
-      );
-  })
-  .catch(
-      (error) => {
-          res.status(500).json({
-              error: error
-          });
-      });  
-}
+            return res.status(404).json({
+                error:new Error('plz input your details'),
+                message: "No details entered"
+                 })     
+           
+        } else if(!user){
+                      
+              return  res.status(404).json({
+                error: new Error ('User not found!'),
+                message:'No email found,plz make sure you write it correctly'
 
+            });
+        }
 
+        bcrypt.compare(req.body.password, user.password).then(
+            (valid) => {
 
+                if (!valid){ 
+                    console.log(user)                 
+                        return res.status(404).json({
+                        error: new Error('Incorrect password!'),
+                        message: `${user.firstname}, please use a correct password!`,
+                        
+                    });
+                    
+                     
+                } 
+                const token = jwt.sign(
+                    { userId: user._id},
+                    'RANDOM_TOKEN_SECRET',
+                    { expiresIn: '24h'});
 
+             return res.redirect('/public/pages/property_1.html');
+
+                //     res.status(200).json({
+                //     userId: user._id,
+                //     token: token,
+                //     message:'Welcome beautiful user'
+                // });
+               
+              
+            }
+        ).catch(
+            (error) => {
+                res.status(500).json({
+                    error: error
+                });
+            }
+        );
+    })
+    .catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        });  
+  }
+  
+  
 
 // export function login(req, res) {
 //     const { email, password } = req.body

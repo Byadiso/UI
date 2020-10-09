@@ -1,0 +1,28 @@
+* {
+box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+body {
+font-family: Arial;
+background-color: #3498DB;
+padding: 50px;
+background-image: url("../image/nganatech.jpg");
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+margin:0;
+}
+
+#singleProperty{
+  
+  align-items: center;
+  margin-top: 20px;
+}
+
+.single-img-created{
+  margin: 20px;
+  border-radius: 5px;
+}

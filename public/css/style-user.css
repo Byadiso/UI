@@ -283,8 +283,9 @@ box-shadow: none;
   display: inline;
   width:250px;
   margin: 0 auto;
+  cursor: pointer;
 }
-
+  
 
 .btn-request {
   border: 2px solid white;

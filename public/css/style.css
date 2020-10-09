@@ -269,7 +269,7 @@ h3{
   box-shadow: none;
   transition: 0.25s;
   display: inline;
-  width:250px;
+  width:auto;
   margin: 0 auto;
 }
 
@@ -286,27 +286,10 @@ h3{
   box-shadow: none;
   transition: 0.25s;
   display: inline;
-  width:250px;
+  width:auto;
   margin: 0 auto;
 }
 
-
-.btn-request {
-  border: 2px solid white;
-  background: rgb(52, 172, 219);
-  color: #ffffff;
-  font-size: 17px;
-  line-height: 25px;
-  padding: 7px 7px 7px 7px;
-  text-decoration: none;
-  text-shadow: none;
-  border-radius: 3px;
-  box-shadow: none;
-  transition: 0.25s;
-  display: inline;
-  width: 250px;
-  margin: 0 auto;
-}
 
 /*filter for advert*/
 
@@ -428,16 +411,17 @@ h3{
   /* user property */
 
 
-  .column-grid-Property{
+  /* .column-grid-Property{
     
     margin-right: 50px;
     margin-left: 20px;
     margin-bottom: 20px;
-    width:300px;
-    height: 350px;
-    float: left;  
+    width:390px;
+    height: auto;
+    float: right;  
    
-  }
+  } */
+  
   .grid-property{
     background-color:rgba(222,222,222, 0.4) ;
     

@@ -42,27 +42,35 @@
         <h1>Sign Up</h1>
       </div>
 
-      <div class="login-form">
+      <div class="login-form ">
         <form action="/api/v1/signup" method="POST" id="sign_up" class="control-group">
+          <div id="emailErr" ></div>
+          <input type="text" class="login-field" placeholder="Email" name="email" id="email">
 
-          <input type="text" class="login-field" value="" placeholder="Email" type="text" name="email" id="login-name">
-          <input type="text" class="login-field" value="" placeholder="Frst name" type="text" name="firstname"
-            id="login-name">
-          <input type="text" class="login-field" value="" placeholder="Second name" type="text" name="lastname"
-            id="login-pass">
-          <input type="password" class="login-field" value="" placeholder="set passsword" type="password"
-            name="password" id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="phone number" type="number" name="phone"
-            id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="Address" type="text" name="address"
-            id="login-pass">
+          <input type="text" class="login-field"  placeholder="Frst name"  name="firstname"
+            id="firstname">
+          <input type="text" class="login-field"  placeholder="Second name"  name="lastname"
+            id="lastname">
+            <div id="passwordErr"></div>
+          <input type="password" class="login-field"  placeholder="set passsword" 
+            name="password" id="password">
+            <div id="password2Err"></div>
+            <input type="password" class="login-field"  placeholder="Confirm passsword" 
+            name="password2" id="password2">
+            <div id="phoneErr"></div>
+          <input type="text" class="login-field"  placeholder="phone number"  name="phone"
+            id="phone">
+
+          <input type="text" class="login-field"  placeholder="Address"  name="address"
+            id="address">
           <p>Are you admin?<p>
               <input type="radio" id="radio-six" name="notaswitch-one" value="yes" checked />
               <label for="radio-six">No</label>
               <input type="radio" id="radio-seven" name="notaswitch-one" value="maybe" />
               <label for="radio-seven">Yes</label>
               <br>
-              <input type="submit">
+              <input id="signupBtn" type="submit">
+              <!-- <button id="signupBtn" type="button">Create Account</button> -->
         </form>
       </div>
     </div>
@@ -75,29 +83,6 @@
 
 </body>
 
-<script type="text/javascript">
-  var usersName = ["Desire", "Mamady"];
-  var usersPass = [123456, 123456];
-
-  function validate() {
-    const username = document.getElementById('login-name').value;
-    const password = document.getElementById('login-pass').value;
-
-
-    for (var i = 0; i < usersName.length; i++) {
-      if (usersName[i] == username && usersPass[i] == password) {
-        alert(username);
-        alert("you have successfully log in the property page");
-        return;
-      } else {
-        alert("Plz input required data ");
-        return;
-      }
-
-    }
-
-  }
-</script>
-
+<script src="../js/signup.js" type="module"></script>
 
 </html

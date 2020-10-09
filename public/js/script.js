@@ -1,97 +1,207 @@
 
+
 /* eslint-disable prettier/prettier */
 document.addEventListener('DOMContentLoaded', ()=>{ 
             
           const ordersMsg = document.getElementById('header-text');  
-          const mainDiv = document.getElementById('myProperties');
+          const mainDiv = document.getElementById('myProperties');           
                   
-      //funciton to fetch data
-      function  fetchData() {
-          fetch('http://localhost:3000/api/v1/property')
-          .then((resp) =>resp.json())
-          .then((data) => renderProperty(data))
-        }
+          //funciton to fetch data
+          function  fetchData() {
+              fetch('http://localhost:3000/api/v1/property')
+              .then((resp) =>resp.json())
+              .then((data) => renderProperty(data))
+            }
 
 
-      // funciton to render my property
-      function  renderProperty(data){
-          console.log(data);
-          ordersMsg.className = 'err';
-          ordersMsg.innerHTML = data.message;
-          const properties= data.Property;
+          // function to render my property
+          function  renderProperty(dataPro){
+              console.log(dataPro);
+              ordersMsg.className = 'err';
+              ordersMsg.innerHTML = dataPro.message;
+              const properties= dataPro.Property;                  
+              for ( var i= 0; i< properties.length; i++ ){
+            
+              let  divprop= document.createElement("DIV");       
 
-          for ( var i= 0; i< properties.length; i++ ){
-        
-          let  divprop= document.createElement("DIV");
-          let  displayOwner = document.createElement("P"); 
-          displayOwner.id ='owner'; 
-          displayOwner.innerHTML= `<strong>Owner:</strong> ${properties[i].owner}`;
+              //for short out
+                // const idPro = properties[i]._id            
 
-          const displayPrice = document.createElement("P");
-          displayPrice.id='price';
-          displayPrice.innerHTML = `<strong>${properties[i].price} Rwf </strong>`;
+      let  displayOwner = document.createElement("P"); 
+                displayOwner.id ='owner'; 
+                displayOwner.innerHTML= `<strong>Owner:</strong> ${properties[i].owner}`;
 
-          const displayCity = document.createElement("P");
-          displayCity.id='city';
-          displayCity.innerHTML = `<strong>   City:</strong>${properties[i].city}, <strong>${properties[i].price}$`;
+                const displayPrice = document.createElement("P");
+                displayPrice.id='price';
+                displayPrice.innerHTML = `<strong>${properties[i].price} Rwf </strong>`;
 
-          const displayPhone = document.createElement("P");
-          displayPhone.id='phone';
-          displayPhone.innerHTML = `<strong>Phone:</strong> ${properties[i].phone}`;
+                const displayCity = document.createElement("P");
+                displayCity.id='city';
+                displayCity.innerHTML = `<strong>   City:</strong>${properties[i].city}, <strong>${properties[i].price}$`;
 
-          const displayDateCreated = document.createElement("P"); 
-          displayDateCreated.id = 'dateCreated0;'
-          displayDateCreated.innerHTML = `<strong>Date Create:</strong> ${properties[i].dateCreated}`;
+                const displayPhone = document.createElement("P");
+                displayPhone.id='phone';
+                displayPhone.innerHTML = `<strong>Phone:</strong> ${properties[i].phone}`;
 
-          const displayAddress = document.createElement("P");
-          displayAddress.id = 'address'
-          displayAddress.innerHTML = `<strong>Adress:</strong> ${properties[i].address}`;
+                const displayDateCreated = document.createElement("P"); 
+                displayDateCreated.id = 'dateCreated0;'
+                displayDateCreated.innerHTML = `<strong>Date Create:</strong> ${properties[i].dateCreated}`;
 
-          const displayState = document.createElement("P");
-          displayState.id = 'state';
-          displayState.innerHTML = `${properties[i].state}`;
+                const displayAddress = document.createElement("P");
+                displayAddress.id = 'address'
+                displayAddress.innerHTML = `<strong>Adress:</strong> ${properties[i].address}`;
+
+                const displayState = document.createElement("P");
+                displayState.id = 'state';
+                displayState.innerHTML = `${properties[i].state}`;          
 
 
-          // adding image property 
-          const img = document.createElement('img'); 
-          img.src = properties[i].url; 
-          img.style.width= "270px";
-          img.style.height= "170px";
-          img.classList.add('imgCreated');
+              // adding image property 
+              const img = document.createElement('img'); 
+              img.src = properties[i].url; 
+              img.style.width= "270px";
+              img.style.height= "170px";
+              img.classList.add('imgCreated');
       
    
 
           // for flipping divs
 
-          const flipBoxInner =document.createElement('div');
-          flipBoxInner.classList.add('flip-box-inner');
+              const flipBoxInner =document.createElement('div');
+              flipBoxInner.classList.add('flip-box-inner');
 
-          const flipBoxFront =document.createElement('div');
-          flipBoxFront.classList.add('flip-box-front');
+              const flipBoxFront =document.createElement('div');
+              flipBoxFront.classList.add('flip-box-front');
 
-          const flipBoxBack =document.createElement('div');
-          flipBoxBack.classList.add('flip-box-back');
-          flipBoxBack.appendChild(displayOwner);
-          flipBoxBack.appendChild(displayPhone);
-          flipBoxBack.appendChild(displayAddress);
+              const flipBoxBack =document.createElement('div');
+              flipBoxBack.classList.add('flip-box-back');
+              flipBoxBack.appendChild(displayOwner);
+              flipBoxBack.appendChild(displayPhone);
+              flipBoxBack.appendChild(displayAddress);
+              flipBoxBack.appendChild(displayDateCreated);
 
-          const flipBox = document.createElement('div');
-          flipBox.classList.add('flip-box');
+              const flipBox = document.createElement('div');
+              flipBox.classList.add('flip-box');
 
-          //creting delete Btn
-          const deleteBtn= document.createElement('BUTTON');
-          deleteBtn.classList.add('btn-delete');
-          deleteBtn.innerHTML = "Delete";
-          deleteBtn.style.margin = "5px 2px 5px 2px";
-          deleteBtn.addEventListener('click', () => deleteMyProperty())
-          
+             
 
-          //creting modifiy Btn
-          // const modifyBtn= document.createElement('BUTTON');
-          // modifyBtn.classList.add('btn-modify');
-          // modifyBtn.innerHTML = "Modify";
-          // modifyBtn.style.margin = "5px 2px 5px 2px"
-          // modifyBtn.addEventListener('click', modifyMyProperty())
+
+
+          // for accessing id 
+          const id = `${properties[i]._id}`; 
+          // console.log(id); 
+          // const  deleteBtn = document.getElementsByClassName('btn-delete');        
+
+           //creting view Btn
+           const viewBtn= document.createElement('BUTTON');
+           viewBtn.classList.add('btn-view');
+           viewBtn.innerHTML = "view";
+           viewBtn.style.margin = "5px 2px 5px 2px";
+           viewBtn.addEventListener('click', () => {
+            fetch( `http://localhost:3000/api/v1/property/${id}`, {
+              method: 'GET', 
+              
+            }).then((res) =>{
+              console.log(res);
+              res.json()
+            }
+            )
+            // .then(pro =>{
+            //   mainDiv.remove();
+            //   let oneItem = pro.Property;
+            //   const singleDiv= document.getElementById('forSingleElement');
+            //   let container = document.createElement('div');
+            //   container.innerHTML = 
+            //    `<div class="property-single">         
+            //       <div>
+            //       <img src=${oneItem.url} class="imgSingleCreated" style="width: 770px; height: 470px;">
+            //       </div>
+            //       <div>
+            //             <p id="phone"><strong>Phone:</strong> ${oneItem.phone}</p>
+            //             <p id="address"><strong>Adress:</strong>${oneItem.address}</p>
+            //             <p id="dateCreated0;"><strong>Date Create:</strong> ${oneItem.dateCreated}</p>
+            //             <p id="owner"><strong>Owner:</strong> ${oneItem.owner}</p>
+            //             <p id="city"><strong>   City:</strong>RUBAVU-KIGALI, <strong>${oneItem.price}$</strong></p>
+                        
+            //       </div>
+            //   </div>`;
+            //   ordersMsg.innerHTML =  `Item Id: ${oneItem._id}`;
+            //   //creating modifiy Btn
+            //   const modifyBtn= document.createElement('BUTTON');
+            //   modifyBtn.classList.add('btn-modify');
+            //   modifyBtn.innerHTML = "Modify";
+            //   modifyBtn.style.margin = "0px 20px 0px 20px";
+
+            //   // creting delete Btn
+            //   const deleteBtn= document.createElement('BUTTON');
+            //   deleteBtn.classList.add('btn-delete');
+            //   deleteBtn.innerHTML = "Delete";
+            //   deleteBtn.style.margin = "0px 20px 0px 20px";
+
+
+            //   //append everything
+            //   container.appendChild(modifyBtn);
+            //   container.appendChild(deleteBtn);
+            //   singleDiv.append(container);
+            //   console.log(pro)
+            //   //<button class="btn-modify" style="margin: 5px 2px;">Modify</button>
+            //   // <button class="btn-delete" style="margin: 5px 2px;">Delete</button>
+
+
+            //   //for delete option
+            //   deleteBtn.addEventListener('click', () => {           
+            //     fetch( `http://localhost:3000/api/v1/property/${id}`, {
+            //       method: 'DELETE',
+            //       headers: {
+            //         Accept: "application/json",
+            //         "Content-Type": "application/json",
+            //         // Authorization: `Bearer `
+            //      }
+            //     }).then(()=> location.reload())         
+             
+            // })
+
+            //    // for modfying action
+
+            //     modifyBtn.addEventListener('click',()=>{
+            //       location.href='../pages/updated.html';
+            //       displayAddress.innerHTML= oneItem.address;
+            //       console.log(oneItem.address);
+            //       const owner = document.getElementById('#owner').textContent;
+            //         owner.value= `${oneItem.owner}`
+
+
+            //       const updateBtn = document.getElementById('submitUpdates');
+            //       updateBtn.addEventListener('click',(e)=>{
+            //         e.preventDefault();
+            //         console.log(oneItem.address);
+            //         // const owner = document.getElementById('.owner');
+            //         // owner.value= `${oneItem.owner}`
+                     
+            //         fetch( `http://localhost:3000/api/v1/property/${id}`, {
+            //           method: 'PUT',
+            //           body: JSON.stringify({
+            //             owner:displayOwner.value,
+            //             price:displayPrice,
+            //             state:displayState,
+            //             city:displayCity.value,
+            //             phone: displayPhone.value,
+            //             url:img.value,
+            //             dateCreated:displayDateCreated.value
+            //           })
+            //         }).then(response => {response.json()})
+            //         .then(dataUpdated =>{ console.log(dataUpdated)})
+            //         .catch(err =>console.log(err))
+            //       });
+            //       })
+                 
+
+            // });
+              
+              // const containerPro = document.querySelector('.singleProperty');
+              // containerPro.innerHTML = pro.Property;
+         });
+        
 
         // append img
           flipBoxFront.appendChild(img);
@@ -103,57 +213,31 @@ document.addEventListener('DOMContentLoaded', ()=>{
         // append the whole
           flipBox.appendChild(flipBoxInner);
 
-          // adding a class to my divprop
-          divprop.classList.add('column-grid-Property');
+          // adding a class to my divprop 
+        divprop.setAttribute("class",'column-grid-Property')
 
    
           // append my created object to divprop
           divprop.appendChild(flipBox); 
-          // divprop.appendChild(displayOwner);
+          divprop.appendChild(displayOwner);
           divprop.appendChild(displayCity);
+
+          // for adding buttons
           // divprop.appendChild(modifyBtn);
-          divprop.appendChild(deleteBtn);
+          // divprop.appendChild(deleteBtn);
+          divprop.appendChild(viewBtn);
+          
 
-          //to append my whole create section
-
-           mainDiv.append(divprop); 
-            
-         }
-
-       }
-
-
-        // funciton to delete some data from my front end and back end 
-      function deleteMyProperty(properties){
-              let divprop = document.getElementsByClassName('column-grid-Property')[0]
-              const url = `http://localhost:3000/api/v1/property/${properties}`;
-              const reqObj = { method: 'DELETE' };
-            fetch(url, reqObj)
-            .then( divprop.remove())
-            console.log('I am ready to remove this')  
-           }
-           
-          //function to modify your content
-    //   function modifyMyProperty(properties){
-    //         let divprop = document.getElementsByClassName('column-grid-Property')[0]
-    //         const url = `http://localhost:3000/api/v1/property/${properties}`;
-    //         const reqObj = { method: 'PUT' };
-
-    //       fetch(url, reqObj)
-    //       .then( divprop.remove())
-    //       window.open("../pages/update-property.html");
-
-    //       console.log('I am ready to modify my property') 
-    //       mainDiv.classList.add('hide');
-       
-    //     const box = document.createElement('DIV');  
-    //     box.innerHTML = 'here we go with created things';
-    //     box.classList.remove('hide')          
-    //  }  
-     
-        fetchData();
-
-})
-
-
+          // to append my whole create section    
+          mainDiv.append(divprop);   
+             
+                   }   
+              }          
+           fetchData();
       
+          })
+   
+              
+     
+
+ 
