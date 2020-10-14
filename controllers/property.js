@@ -24,7 +24,7 @@ export function createproperty(req, res) {
                 if (err) throw err
                 console.log(property)
             })        
-            return res.redirect('/public/pages/property_1.html')
+            return res.redirect('/public/pages/property.html')
             
             }
         
@@ -111,7 +111,7 @@ export function deleteProperty(req, res) {
                 success: true,
                 message:'property deleted well',               
             });
-            return res.redirect('/public/pages/property_1.html');            
+            return res.redirect('/public/pages/property.html');            
           }
         )
         .catch(err =>
