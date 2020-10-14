@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
    const  fetchingSingle = ( () => {
     fetch( "http://localhost:3000/api/v1/property")
     .then((res) => res.json())
-    .then(pro => renderSingle(pro))
-    
+    .then(pro => renderSingle(pro))    
  });
     
    

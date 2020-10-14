@@ -54,11 +54,12 @@ export function getAllProperties(req, res) {
 export  function getSingleProperty(req, res) {        
         Property.findById({ _id: req.params.id }) 
     .then(singleProperty => {
-           return res.status(200).json({
+            res.status(200).json({
                 success: true,
                 message: `More on ${singleProperty}`,
                 Property: singleProperty,
-            }).redirect('/public/pages/singleProperty.html');
+            })
+            
               
         })
         .catch(err => {

@@ -455,3 +455,14 @@ box-shadow: none;
   border-radius: 20px;
   
 }
+
+.userDetails{
+  float: left;
+  width: 306px;
+  padding: 10px;
+  height: 200px; 
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 5px;
+  background-color:rgba(222,222,222, 0.4);
+}

@@ -1,18 +1,17 @@
-
-
-/* eslint-disable prettier/prettier */
-document.addEventListener('DOMContentLoaded', ()=>{ 
+      
+          
+          document.addEventListener('DOMContentLoaded', ()=>{ 
+    
             
           const ordersMsg = document.getElementById('header-text');  
           const mainDiv = document.getElementById('myProperties');           
                   
-          //funciton to fetch data
-          function  fetchData() {
-              fetch('http://localhost:3000/api/v1/property')
-              .then((resp) =>resp.json())
-              .then((data) => renderProperty(data))
-            }
-
+          //funciton to fetch data       
+        const listAll = () =>{
+         return  fetch('http://localhost:3000/api/v1/property')
+            .then((resp) =>resp.json())
+            .then((data) => renderProperty(data))
+          }
 
           // function to render my property
           function  renderProperty(dataPro){
@@ -22,12 +21,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
               const properties= dataPro.Property;                  
               for ( var i= 0; i< properties.length; i++ ){
             
-              let  divprop= document.createElement("DIV");       
+                let  divprop= document.createElement("DIV");       
 
               //for short out
                 // const idPro = properties[i]._id            
 
-      let  displayOwner = document.createElement("P"); 
+                let  displayOwner = document.createElement("P"); 
                 displayOwner.id ='owner'; 
                 displayOwner.innerHTML= `<strong>Owner:</strong> ${properties[i].owner}`;
 
@@ -57,15 +56,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
               // adding image property 
-              const img = document.createElement('img'); 
-              img.src = properties[i].url; 
-              img.style.width= "270px";
-              img.style.height= "170px";
-              img.classList.add('imgCreated');
-      
+                const img = document.createElement('img'); 
+                img.src = properties[i].url; 
+                img.style.width= "270px";
+                img.style.height= "170px";
+                img.classList.add('imgCreated');
+        
    
 
-          // for flipping divs
+              // for flipping divs
 
               const flipBoxInner =document.createElement('div');
               flipBoxInner.classList.add('flip-box-inner');
@@ -97,111 +96,119 @@ document.addEventListener('DOMContentLoaded', ()=>{
            viewBtn.classList.add('btn-view');
            viewBtn.innerHTML = "view";
            viewBtn.style.margin = "5px 2px 5px 2px";
-           viewBtn.addEventListener('click', () => {
+           viewBtn.addEventListener('click',  ()=> {           
             fetch( `http://localhost:3000/api/v1/property/${id}`, {
               method: 'GET', 
               
             }).then((res) =>{
               console.log(res);
               res.json()
-            }
-            )
-            // .then(pro =>{
-            //   mainDiv.remove();
-            //   let oneItem = pro.Property;
-            //   const singleDiv= document.getElementById('forSingleElement');
-            //   let container = document.createElement('div');
-            //   container.innerHTML = 
-            //    `<div class="property-single">         
-            //       <div>
-            //       <img src=${oneItem.url} class="imgSingleCreated" style="width: 770px; height: 470px;">
-            //       </div>
-            //       <div>
-            //             <p id="phone"><strong>Phone:</strong> ${oneItem.phone}</p>
-            //             <p id="address"><strong>Adress:</strong>${oneItem.address}</p>
-            //             <p id="dateCreated0;"><strong>Date Create:</strong> ${oneItem.dateCreated}</p>
-            //             <p id="owner"><strong>Owner:</strong> ${oneItem.owner}</p>
-            //             <p id="city"><strong>   City:</strong>RUBAVU-KIGALI, <strong>${oneItem.price}$</strong></p>
+            })
+            .then(pro =>{
+              location.href='../pages/singleProperty.html';
+              mainDiv.remove();
+              let oneItem = pro.Property;
+              const singleDiv= document.getElementById('forSingleElement');
+              let container = document.createElement('div');
+              container.innerHTML = 
+               `<div class="property-single">         
+                  <div>
+                  <img src=${oneItem.url} class="imgSingleCreated" style="width: 770px; height: 470px;">
+                  </div>
+                  <div>
+                        <p id="phone"><strong>Phone:</strong> ${oneItem.phone}</p>
+                        <p id="address"><strong>Adress:</strong>${oneItem.address}</p>
+                        <p id="dateCreated0;"><strong>Date Create:</strong> ${oneItem.dateCreated}</p>
+                        <p id="owner"><strong>Owner:</strong> ${oneItem.owner}</p>
+                        <p id="city"><strong>   City:</strong>RUBAVU-KIGALI, <strong>${oneItem.price}$</strong></p>
                         
-            //       </div>
-            //   </div>`;
-            //   ordersMsg.innerHTML =  `Item Id: ${oneItem._id}`;
-            //   //creating modifiy Btn
-            //   const modifyBtn= document.createElement('BUTTON');
-            //   modifyBtn.classList.add('btn-modify');
-            //   modifyBtn.innerHTML = "Modify";
-            //   modifyBtn.style.margin = "0px 20px 0px 20px";
-
-            //   // creting delete Btn
-            //   const deleteBtn= document.createElement('BUTTON');
-            //   deleteBtn.classList.add('btn-delete');
-            //   deleteBtn.innerHTML = "Delete";
-            //   deleteBtn.style.margin = "0px 20px 0px 20px";
-
-
-            //   //append everything
-            //   container.appendChild(modifyBtn);
-            //   container.appendChild(deleteBtn);
-            //   singleDiv.append(container);
-            //   console.log(pro)
-            //   //<button class="btn-modify" style="margin: 5px 2px;">Modify</button>
-            //   // <button class="btn-delete" style="margin: 5px 2px;">Delete</button>
-
-
-            //   //for delete option
-            //   deleteBtn.addEventListener('click', () => {           
-            //     fetch( `http://localhost:3000/api/v1/property/${id}`, {
-            //       method: 'DELETE',
-            //       headers: {
-            //         Accept: "application/json",
-            //         "Content-Type": "application/json",
-            //         // Authorization: `Bearer `
-            //      }
-            //     }).then(()=> location.reload())         
-             
-            // })
-
-            //    // for modfying action
-
-            //     modifyBtn.addEventListener('click',()=>{
-            //       location.href='../pages/updated.html';
-            //       displayAddress.innerHTML= oneItem.address;
-            //       console.log(oneItem.address);
-            //       const owner = document.getElementById('#owner').textContent;
-            //         owner.value= `${oneItem.owner}`
-
-
-            //       const updateBtn = document.getElementById('submitUpdates');
-            //       updateBtn.addEventListener('click',(e)=>{
-            //         e.preventDefault();
-            //         console.log(oneItem.address);
-            //         // const owner = document.getElementById('.owner');
-            //         // owner.value= `${oneItem.owner}`
-                     
-            //         fetch( `http://localhost:3000/api/v1/property/${id}`, {
-            //           method: 'PUT',
-            //           body: JSON.stringify({
-            //             owner:displayOwner.value,
-            //             price:displayPrice,
-            //             state:displayState,
-            //             city:displayCity.value,
-            //             phone: displayPhone.value,
-            //             url:img.value,
-            //             dateCreated:displayDateCreated.value
-            //           })
-            //         }).then(response => {response.json()})
-            //         .then(dataUpdated =>{ console.log(dataUpdated)})
-            //         .catch(err =>console.log(err))
-            //       });
-            //       })
-                 
-
-            // });
+                  </div>
+              </div>`; 
               
-              // const containerPro = document.querySelector('.singleProperty');
-              // containerPro.innerHTML = pro.Property;
+
+
+              ordersMsg.innerHTML =  `Item Id: ${oneItem._id}`;
+              //creating modifiy Btn
+              const modifyBtn= document.createElement('BUTTON');
+              modifyBtn.classList.add('btn-modify');
+              modifyBtn.innerHTML = "Modify";
+              modifyBtn.style.margin = "0px 20px 0px 20px";
+
+              // creting delete Btn
+              const deleteBtn= document.createElement('BUTTON');
+              deleteBtn.classList.add('btn-delete');
+              deleteBtn.innerHTML = "Delete";
+              deleteBtn.style.margin = "0px 20px 0px 20px";
+
+
+              //append everything
+              container.appendChild(modifyBtn);
+              container.appendChild(deleteBtn);
+              singleDiv.append(container);
+              console.log(pro)
+              //<button class="btn-modify" style="margin: 5px 2px;">Modify</button>
+              // <button class="btn-delete" style="margin: 5px 2px;">Delete</button>
+
+
+              //for delete option
+              deleteBtn.addEventListener('click', fetchDelete());
+
+              // fetch delete function
+               const fetchDelete = ()=>{                         
+                  fetch( `http://localhost:3000/api/v1/property/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json",
+                      // Authorization: `Bearer `
+                   }
+                  }).then(()=> location.reload());     
+               
+                }
+
+               // for modfying action
+
+                modifyBtn.addEventListener('click',()=>{
+                  location.href='../pages/updated.html';
+                  displayAddress.innerHTML= oneItem.address;
+                  console.log(oneItem.address);
+                  const owner = document.getElementById('#owner').textContent;
+                    owner.value= `${oneItem.owner}`
+
+
+                  const updateBtn = document.getElementById('submitUpdates');
+                  updateBtn.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    console.log(oneItem.address);
+                    // const owner = document.getElementById('.owner');
+                    // owner.value= `${oneItem.owner}`
+                     
+                    fetch( `http://localhost:3000/api/v1/property/${id}`, {
+                      method: 'PUT',
+                      body: JSON.stringify({
+                        owner:displayOwner.value,
+                        price:displayPrice,
+                        state:displayState,
+                        city:displayCity.value,
+                        phone: displayPhone.value,
+                        url:img.value,
+                        dateCreated:displayDateCreated.value
+                      })
+                    }).then(response => {response.json()})
+                    .then(dataUpdated =>{ console.log(dataUpdated)})
+                    .catch(err =>console.log(err))
+                  });
+                  })
+                 
+                  const containerPro = document.querySelector('.singleProperty');
+                  containerPro.innerHTML = pro.Property;
+            });           
+         
          });
-        
+
+          
+           
+           
 
         // append img
           flipBoxFront.appendChild(img);
@@ -229,14 +236,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
           
 
           // to append my whole create section    
-          mainDiv.append(divprop);   
+          mainDiv.append(divprop); 
+          
+          
              
                    }   
-              }          
-           fetchData();
+                   
+              }            
+                                       
+              listAll();
       
           })
-   
+          
+          
+          
+          
+          
+          
+          
+          
+          
               
      
 

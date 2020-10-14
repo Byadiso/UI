@@ -39,7 +39,7 @@ export function createUser(req, res) {
                     console.log(user)                 
                })
              
-                return res.redirect('/public/pages/property_1.html');
+                return res.redirect('/public/pages/user.html');
               
     
             }
@@ -204,7 +204,7 @@ export function login(req, res) {
                     'RANDOM_TOKEN_SECRET',
                     { expiresIn: '24h'});
 
-             return res.redirect('/public/pages/property_1.html');
+             return res.redirect('/public/pages/user.html');
 
                 //     res.status(200).json({
                 //     userId: user._id,
