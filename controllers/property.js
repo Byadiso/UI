@@ -18,7 +18,7 @@ export function createproperty(req, res) {
                 phone: req.body.phone,
                 address: req.body.address,
                 url: req.body.url,
-                dateCreated: new Date().tost,
+                dateCreated: new Date().toString(),
             }) 
             db.collection('properties').insertOne(property, function (err, collection) {
                 if (err) throw err
@@ -91,7 +91,7 @@ export function updateProperty(req, res) {
             message: 'Property  is updated',
             Property: property,
           });
-          return res.redirect('/public/pages/updated.html');
+          return res.redirect('/public/pages/property.html');
         }
       )
         .catch(err => {

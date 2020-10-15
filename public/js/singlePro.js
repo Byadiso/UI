@@ -3,9 +3,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{ 
             
   // const ordersMsg = document.getElementById('header-text');  
-  const mainSingleDiv = document.getElementById('singleProperty');
-
-  
+  const mainSingleDiv = document.getElementById('singleProperty'); 
   
    const  fetchingSingle = (proId => {
     fetch( `http://localhost:3000/api/v1/property/${proId}`)
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
  });
        
  function renderSingle(data){
-console.log(data)
+  console.log(data)
    const singlePro = data.Property;
    //for delete button
 

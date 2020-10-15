@@ -3,6 +3,7 @@
 // CONSUME LOGIN ENDPOINT
 const loginBtn = document.getElementById('loginBtn');
 const userField = document.getElementById('email');
+const firstname = document.getElementById('firstname');
 const passwordField = document.getElementById('password');
 const incorrect =  document.getElementById('incorrect');
 
@@ -50,8 +51,8 @@ loginBtn.onclick = () => {
       } else {
         if (res.status === 201) {
         localStorage.setItem('token', res.token);
-        localStorage.setItem('username', res.user.username);
-        localStorage.setItem('address', res.user.address);
+        localStorage.setItem('firstname', res.user.firstname);
+        localStorage.setItem('lastname', res.user.lastname);
         localStorage.setItem('phone', res.user.phone);
         localStorage.setItem('email', res.user.email);
         localStorage.setItem('id', res.user.userid);

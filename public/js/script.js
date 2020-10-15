@@ -2,7 +2,7 @@
           
           document.addEventListener('DOMContentLoaded', ()=>{ 
     
-            
+          
           const ordersMsg = document.getElementById('header-text');  
           const mainDiv = document.getElementById('myProperties');           
                   
@@ -21,10 +21,7 @@
               const properties= dataPro.Property;                  
               for ( var i= 0; i< properties.length; i++ ){
             
-                let  divprop= document.createElement("DIV");       
-
-              //for short out
-                // const idPro = properties[i]._id            
+                let  divprop= document.createElement("DIV");              
 
                 let  displayOwner = document.createElement("P"); 
                 displayOwner.id ='owner'; 
@@ -52,16 +49,14 @@
 
                 const displayState = document.createElement("P");
                 displayState.id = 'state';
-                displayState.innerHTML = `${properties[i].state}`;          
-
+                displayState.innerHTML = `${properties[i].state}`;
 
               // adding image property 
                 const img = document.createElement('img'); 
                 img.src = properties[i].url; 
                 img.style.width= "270px";
                 img.style.height= "170px";
-                img.classList.add('imgCreated');
-        
+                img.classList.add('imgCreated');       
    
 
               // for flipping divs
@@ -80,14 +75,12 @@
               flipBoxBack.appendChild(displayDateCreated);
 
               const flipBox = document.createElement('div');
-              flipBox.classList.add('flip-box');
-
-             
+              flipBox.classList.add('flip-box');             
 
 
 
           // for accessing id 
-          const id = `${properties[i]._id}`; 
+         const id = `${properties[i]._id}`; 
           // console.log(id); 
           // const  deleteBtn = document.getElementsByClassName('btn-delete');        
 
@@ -123,8 +116,7 @@
                         <p id="city"><strong>   City:</strong>RUBAVU-KIGALI, <strong>${oneItem.price}$</strong></p>
                         
                   </div>
-              </div>`; 
-              
+              </div>`;              
 
 
               ordersMsg.innerHTML =  `Item Id: ${oneItem._id}`;
@@ -183,7 +175,7 @@
                     // const owner = document.getElementById('.owner');
                     // owner.value= `${oneItem.owner}`
                      
-                    fetch( `http://localhost:3000/api/v1/property/${id}`, {
+                    fetch(`http://localhost:3000/api/v1/property/${id}`, {
                       method: 'PUT',
                       body: JSON.stringify({
                         owner:displayOwner.value,
@@ -205,10 +197,7 @@
             });           
          
          });
-
-          
-           
-           
+         
 
         // append img
           flipBoxFront.appendChild(img);
@@ -236,15 +225,20 @@
           
 
           // to append my whole create section    
-          mainDiv.append(divprop); 
-          
-          
+          mainDiv.append(divprop);          
              
-                   }   
-                   
+                   }           
               }            
-                                       
+                   
+              
               listAll();
+
+              // implementing logOut
+                const logOutBtn = document.getElementsByClassName('log-out');
+                  logOutBtn.addEventListener('click',()=>{
+                  localStorage.clear();
+                  window.location.href = '../pages/login.html';
+              })
       
           })
           
