@@ -1,5 +1,6 @@
 
 import mongoose from 'mongoose'
+import { number } from 'joi'
 
 mongoose.Promise = global.Promise
 
@@ -7,6 +8,9 @@ mongoose.Promise = global.Promise
  
 const propertySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    // _id: {
+    //     type: String
+    // },
     owner: {
         type: String,
         required: true,
@@ -33,9 +37,10 @@ const propertySchema = new mongoose.Schema({
         required: false,
     },
     dateCreated: {
-        type: String,
-        required: false,
+        type: Date,
+        default: Date.now,
     },
+   
     url: {
         type: String,
         required: false,

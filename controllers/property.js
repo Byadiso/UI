@@ -4,6 +4,7 @@ import db from '../database/db'
 import dotenv from 'dotenv'
 dotenv.config()
 
+
 //create a property
 
 export function createproperty(req, res) {
@@ -17,13 +18,13 @@ export function createproperty(req, res) {
                 phone: req.body.phone,
                 address: req.body.address,
                 url: req.body.url,
-                dateCreated: req.body.dateCreated,
+                dateCreated: new Date().toString(),
             }) 
             db.collection('properties').insertOne(property, function (err, collection) {
                 if (err) throw err
                 console.log(property)
             })        
-            return res.redirect('/public/pages/property_1.html')
+            return res.redirect('/public/pages/property.html')
             
             }
         
@@ -31,12 +32,12 @@ export function createproperty(req, res) {
 
 // Get all propertieis
 export function getAllProperties(req, res) {
-    Property.find()
+    Property.find().sort({ dateCreated: 'asc' })
         .select('_id owner price city address state url phone dateCreated')
         .then(allProperties => {
             return res.status(200).json({
                 success: true,
-                message: 'A list of all properties ',
+                message: 'A list of all properties',
                 Property: allProperties,
             })
         })
@@ -50,15 +51,16 @@ export function getAllProperties(req, res) {
 }
 
 // get single property
-export function getSingleProperty(req, res) {
-    // const _id = req.params.propertyId
-    Property.findOne(req.params.id)
-        .then(singleProperty => {
+export  function getSingleProperty(req, res) {        
+        Property.findById({ _id: req.params.id }) 
+    .then(singleProperty => {
             res.status(200).json({
                 success: true,
                 message: `More on ${singleProperty}`,
                 Property: singleProperty,
             })
+            
+              
         })
         .catch(err => {
             res.status(500).json({
@@ -70,18 +72,28 @@ export function getSingleProperty(req, res) {
 }
 
 // update property
-export function updateProperty(req, res) {
-    const id = req.params.propertyId
-    const updateObject = req.body
-    Property.updateOne({ _id: id }, { $set: updateObject })
-        .exec()
-        .then(() => {
-            res.status(200).json({
-                success: true,
-                message: 'Property  is updated',
-                updateProperty: updateObject,
-            })
-        })
+export function updateProperty(req, res) {   
+    const property = new Property({
+        _id: req.params.id,
+        owner: req.body.owner,
+        price: req.body.price,
+        state: req.body.state,
+        city: req.body.city,
+        phone: req.body.phone,
+        address: req.body.address,
+        url: req.body.url,
+        dateCreated: req.body.dateCreated,
+    })
+     Property.updateOne({_id: req.params.id}, property).then(
+        () => {
+          res.status(201).json({
+            success: true,
+            message: 'Property  is updated',
+            Property: property,
+          });
+          return res.redirect('/public/pages/property.html');
+        }
+      )
         .catch(err => {
             res.status(500).json({
                 success: false,
@@ -90,16 +102,17 @@ export function updateProperty(req, res) {
             })
         })
 }
+
 // delete a property
-export function deleteProperty(req, res) {
-    const id = req.params.propertyId
-    Property.deleteOne(id)
-        .exec()
-        .then(() =>
-            res.status(204).json({
+export function deleteProperty(req, res) {    
+    Property.deleteOne({_id: req.params.id})      
+        .then(() => {
+            res.status(200).json({
                 success: true,
-                message:'property deleted well'
-            })
+                message:'property deleted well',               
+            });
+            return res.redirect('/public/pages/property.html');            
+          }
         )
         .catch(err =>
             res.status(500).json({

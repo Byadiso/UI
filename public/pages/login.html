@@ -4,32 +4,22 @@
 
 <head>
 
-
  <meta>
         <link rel="stylesheet" type="text/css" href="../css/style-signup-signin-sell.css">
         <title> PropertyPro LITE</title>
-        <link rel="icon" type="image/ico" href="../image/bar-icon.png" />
-</head>
+        <link rel="icon" type="image/ico" href="../image/bar-icon.png" />      
 
 <body>
-
-
-
   <a class="sell" href="sell.html"><img src="../image/header.png" height="80px" width="200px"></a>
-
-
-
 <div class="topnav">
 
+  <a href="../index.html"><strong>HOME </strong></a>
 
-  <a href="../index.html"><strong>PROPERTY FOR RENT</strong></a>
-
-   <a class="register" href="sell.html"><strong>SELL A PROPERTY</strong></a>
+   <!-- <a class="register" href="sell.html"><strong>SELL A PROPERTY</strong></a> -->
 
 
 <div class="login-container">
     <form action="post">
-
       <a   class="active" href="login.html">Sign In </a>
       <a  href="sign_up.html">Sign up</a>
     </form>
@@ -43,22 +33,29 @@
             </div>
 
 
-            <form action="/api/v1/login" method="GET">
+            <form action="/api/v1/login" method="POST" id="formLogin">
                <div class="login-form">
+                <div id="usernameErr"></div>
                   <div class="control-group">
-                     <input type="text" class="login-field" value="" placeholder="username" id="login-name">
-                     <label class="login-field-icon fui-user" for="login-name"></label>
+                     <input type="text" class="login-field"  placeholder="username" name="email" id="email">
+                     
                 </div>
-
+                <div id="emailErr"></div>
                 <div class="control-group">
-                   <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
-                  <label class="login-field-icon fui-lock" for="login-pass"></label>
+                   <input type="password" class="login-field" placeholder="password" name="password"  id="password">
                 </div>
+                <div id="passwordErr"></div>
+                
+                <div><input type="checkbox" id="checkbox" onclick="togglePassword()">Show Password</div>
+				      	<div id="password2Err"></div>
 
-               <input type="submit" class="submit-btn">  
+                <button id="loginBtn">login</button>
+               <!-- <input type="submit" class="submit-btn">    -->
+               <div id="incorrect"> </div>
                 
             </form>
-                <a class="login-link" href="#">Lost your password?</a>
+           
+                <a class="login-link" href="#">Lost your password?</a> <p>or</p><a class="login-link" href="./sign_up.html">Register</a>
             </div>
         </div>
     </div>
@@ -69,28 +66,18 @@
 
 </body>
 
-<script type="text/javascript">
-     var usersName = ["Desire","Mamady"];
-     var usersPass = [123456, 123456];
-     function validate(){
-       const username = document.getElementById('login-name').value;
-       const password = document.getElementById('login-pass').value;
-       
-      
-        for (var i = 0; i < usersName.length; i++) {
-         if (usersName[i] == username && usersPass[i] == password) {
-           alert(username);
-                      alert("you have successfully log in the property page");
-           return;
-         }
-         else{
-          alert("Username doesn't exist ");
-           return;
-         }
-           
-      }
-   
-     }
+<script >
+
+        function togglePassword() {
+                        const input = document.getElementById("password");
+                        if (input.type === "password") {
+                            input.type = "text";
+                        } else {
+                            input.type = "password";
+                        }
+                    }
+
 </script>
+<script src="../js/login.js"></script>
 
 </html>

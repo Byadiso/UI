@@ -283,8 +283,9 @@ box-shadow: none;
   display: inline;
   width:250px;
   margin: 0 auto;
+  cursor: pointer;
 }
-
+  
 
 .btn-request {
   border: 2px solid white;
@@ -453,4 +454,15 @@ box-shadow: none;
   border: 5px solid grey; 
   border-radius: 20px;
   
+}
+
+.userDetails{
+  float: left;
+  width: 306px;
+  padding: 10px;
+  height: 200px; 
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 5px;
+  background-color:rgba(222,222,222, 0.4);
 }

@@ -11,20 +11,20 @@
 
 <body>
 
-  <a class="sell" href="sell.html"><img src="../image/header.png" height="80px" width="200px"></a>
+  <a class="sell" href="http://localhost:3000/public/pages/property_1.html"><img src="../image/header.png" height="80px" width="200px"></a>
 
 
   <div class="topnav">
 
-    <a href="../index.html"><strong>PROPERTY FOR RENT</strong></a>
+    <a href="./property.html"><strong>Market</strong></a>
 
-    <a class="active" href="sell.html"><strong>SELL A PROPERTY</strong></a>
+    <a class="active" href="user.html"><strong>My Details</strong></a>
 
     <div class="login-container">
       <form action="post">
 
-        <a class="register" href="login.html">Sign In </a>
-        <a href="sign_up.html">Sign up</a>
+        <a class="log-out" href="../index.html">Log OUT</a>
+        
       </form>
     </div>
   </div>
@@ -46,8 +46,8 @@
           <input type="text" class="login-field" value="" placeholder="Address" type="text" name="address"
             id="login-pass">
           <input type="url" class="login-field" value="" placeholder="url" type="url" name="url" id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="dateCreated" type="text" name="dateCreated"
-            id="login-pass">
+          <!-- <input type="text" class="login-field" value="" placeholder="dateCreated" type="text" name="dateCreated"
+            id="login-pass"> -->
           <br>
           <input type="submit" submit="fetchUserData()" id="submit">
         </form>

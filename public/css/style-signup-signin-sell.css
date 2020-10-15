@@ -168,6 +168,16 @@ box-shadow: none;
   display: block;
     margin-top: 12px;
 }
+
+/* for errrors */
+
+#usernameErr, #emailErr, #passwordErr, #password2Err{
+  color: red;
+  /* text-shadow: 1px 1px 1px #000000; */
+  margin: 5px;
+}
+
+
 /* for footer */
 
   #footer {

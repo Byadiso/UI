@@ -2,9 +2,11 @@
 
 //import dependencie
 
-import express from 'express'
-import router from './routes/routes'
-import bodyParser from 'body-parser'
+import express from 'express';
+import router from './routes/routes';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
 
 
 
@@ -17,6 +19,7 @@ app.use(express.urlencoded({
 }))
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(router);
 
@@ -73,8 +76,29 @@ app.get('/', function (req, res) {
 
 
 // for render login
+  app.get('/login', function (req, res) {
+    res.set({
+        'Access-control-Allow-Origin': '*'
+    });
+    return res.redirect('/login.html');
+})
+//for index page
+app.get('/index', (_req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
+        .status(200)
+        .json({
+            status: 200,
+            message: 'Welcome to PropertyPro-Lite you can sale or rent your needs!',
+        })
+})
 
-
+// app.get('/login',(req,res) =>{
+//     res.redirect(__dirname + '/public/pages/index.html')
+//         .status(200)
+//         .json({
+//             status:200, 
+//             message: 'welcome beautiful user'})
+// })
 
 const port = process.env.PORT || 3000
 
