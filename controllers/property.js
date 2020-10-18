@@ -2,6 +2,7 @@ import Property from '../models/property'
 import mongoose from 'mongoose'
 import db from '../database/db'
 import dotenv from 'dotenv'
+
 dotenv.config()
 
 

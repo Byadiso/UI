@@ -45,11 +45,11 @@ loginBtn.onclick = () => {
                   },
                   body: JSON.stringify({ usernameEmail, password }),
     } ).then(resp => resp.json().then((res) => {      
-      if (res.status === 404) {       
+      if (res.success === false) {       
         console.log(res.message)
         return password2Err.innerHTML = res.message;
       } else {
-        if (res.status === 201) {
+        if (res.success === true) {
         localStorage.setItem('token', res.token);
         localStorage.setItem('firstname', res.user.firstname);
         localStorage.setItem('lastname', res.user.lastname);
