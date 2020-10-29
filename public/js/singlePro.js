@@ -4,18 +4,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
             
   // const ordersMsg = document.getElementById('header-text');  
   const mainSingleDiv = document.getElementById('singleProperty'); 
+  let proId = localStorage.getItem('id');
+  let propertiesItem = {...JSON.parse(localStorage.getItem('properties'))};
+
+  // console.log(properties);
   
-   const  fetchingSingle = (proId => {
-    fetch( `http://localhost:3000/api/v1/property/${proId}`)
-    .then((res) => res.json())
-    .then(pro => {        
-    renderSingle(pro);
-   })    
- });
-       
- function renderSingle(data){
-  console.log(data)
-   const singlePro = data.Property;
+  console.log(proId);
+  let pro =[];
+  pro = [...pro, propertiesItem];
+  
+  let Mypro = pro.find(item => ()=>{
+     item.Property.id[0]=== proId }
+  )
+
+  let newPro = Mypro.Property 
+  console.log(newPro);
+  let findedOne = newPro.find(item=> item._id === proId)
+    
+  console.log(findedOne);
+  
+         
+ const renderPro = ()=>{
+  
+   const singlePro = findedOne;
    //for delete button
 
     const deleteBtn= document.createElement('BUTTON');
@@ -24,7 +35,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     deleteBtn.style.margin = "5px 2px 5px 2px";
     deleteBtn.addEventListener('click', ()=>{
             console.log('yes delete something');                         
-            fetch( `http://localhost:3000/api/v1/property/${id}`, {
+            fetch( `http://localhost:3000/api/v1/property/${proId}`, {
               method: 'DELETE',
               headers: {
                 Accept: "application/json",
@@ -43,7 +54,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
           modifyBtn.addEventListener('click', ()=>{
                 console.log('yes updates')
 
-
+                location.href='../pages/updated.html';
 
           });
 
@@ -62,7 +73,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
               
  }
 
- fetchingSingle();
+//  fetchingSingle();
+
+renderPro()
 
 })
 

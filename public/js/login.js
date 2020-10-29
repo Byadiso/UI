@@ -36,7 +36,7 @@ loginBtn.onclick = () => {
         
   } else {    
         usernameErr.innerHTML = '';
-        const usernameEmail = document.getElementById('email').value;    
+        const usernameEmail = document.getElementById('email').value;  
     
     fetch('http://localhost:3000/api/v1/login',{
                   method: 'POST',
