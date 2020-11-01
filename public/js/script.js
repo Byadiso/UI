@@ -273,6 +273,7 @@
               // implementing logOut
                 const logOutBtn = document.getElementsByClassName('log-out');
                   logOutBtn.addEventListener('click', ()=>{
+                    console.log('plz I am out')
                   localStorage.clear();
                   window.location.href = '../pages/login.html';
               })

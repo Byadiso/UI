@@ -4,18 +4,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
             
   // const ordersMsg = document.getElementById('header-text');  
   const usersDiv= document.getElementById('userContainer');
- 
    const  fetchingUsers = ( () => {
     fetch( "http://localhost:3000/api/v1/users")
     .then((res) => res.json())
-    .then(pro => renderUsers(pro))    
+    .then(users => renderUsers(users))    
  });
     
    
- function renderUsers(pro){
-console.log(pro )
+ function renderUsers(users){
+const storedUser = localStorage.setItem('users',JSON.stringify(users));
+console.log(storedUser);
 
-let Items = pro.user;
+let Items = users.user;
 for ( var i= 0; i< Items.length; i++ ) {
 
   let userCont = document.createElement('div');
@@ -27,11 +27,8 @@ for ( var i= 0; i< Items.length; i++ ) {
   
   usersDiv.appendChild(userCont)
 
-}
-
-  
-
-     }
+      }
+   }
 
 fetchingUsers();  
 

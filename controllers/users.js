@@ -172,10 +172,11 @@ export function login(req, res) {
         const {email,password} = req.body
         if (!email && !password ){
             
-            return res.status(404).json({
+             res.status(404).json({
                 error:new Error('plz input your details'),
                 message: "No details entered"
-                 })     
+                 });
+                 return;     
            
         } else if(!user){
                       

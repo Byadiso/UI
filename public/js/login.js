@@ -26,13 +26,16 @@ loginBtn.onclick = () => {
   const password = passwordField.value;
 
   if (!usernameEmail.trim() || !password.trim()) {
-    return password2Err.innerHTML = 'Please fill in all fields';
+    password2Err.innerHTML = 'Please fill in all fields';
+
+    return;
     
   }
-  password2Err.innerHTML = '';
-  if (emailErr.innerHTML !== '' || passwordErr.innerHTML !== '' || password2Err.innerHTML !== '') {
+  // password2Err.innerHTML = '';
+  else if (emailErr.innerHTML !== '' || passwordErr.innerHTML !== '' || password2Err.innerHTML !== '') {
         // usernameErr.innerHTML = 'Please correct the errors in red below';
-        return  password2Err.innerHTML = 'Please correct the errors in red below';
+       password2Err.innerHTML = 'Please correct the errors in red below';
+       return;
         
   } else {    
         usernameErr.innerHTML = '';

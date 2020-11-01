@@ -1,6 +1,8 @@
 
 /* eslint-disable prettier/prettier */
 document.addEventListener('DOMContentLoaded', ()=> { 
+  
+  let urlPro = 'http://localhost:3000/api/v1/property/';
             
   // for accessing only my form to be updated 
   const owner = document.querySelector('#owner');
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   let propertiesItem = {...JSON.parse(localStorage.getItem('properties'))};
 
   // console.log(properties);  
-  console.log(proId);
+  // console.log(proId);
   let pro =[];
   pro = [...pro, propertiesItem];  
   let Mypro = pro.find(item => ()=>{
@@ -43,26 +45,29 @@ document.addEventListener('DOMContentLoaded', ()=> {
       fetchUpdate();
   })
 
- function fetchUpdate(){
-  fetch(`http://localhost:3000/api/v1/property/${proId}`,{
+const fetchUpdate= (proId)=>{
+  fetch(`${urlPro}/${proId}`, {
    method: 'PUT',
+   headers:{
+     'Content-Type':'application/json'
+    },
    body: JSON.stringify({
+     _id: proId,
      owner:owner.value,
      price:price.value,
      state:state.value,
      city:city.value,
      phone: phone.value,
      url:url.value,
-     dateCreated:Date
-   }),
+     dateCreated: Date.now()
+   })
  })
- .then(response => response.json())
+ .then(response => console.log(response))
  .then(dataUpdated =>{
   let storedData = localStorage.setItem('properties', JSON.stringify(dataUpdated))
-  console.log(storedData);
+  console.log(storedData);  
  })
- .catch(err =>console.log(err)); 
- 
+ .catch(err =>console.log(err));  
   }
 
 })

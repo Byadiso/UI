@@ -82,6 +82,7 @@ signupBtn.onclick = () => {
       body: JSON.stringify({ username:username.value, email: email.value, password: password.value }),
     });
     fetch(req).then(resp => resp.json().then((res) => {
+      
       if (res.status === 'fail') {
         return password2Err.innerHTML = res.message;
       }
