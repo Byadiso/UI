@@ -13,9 +13,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 //create a user
-
-
-
 export function createUser(req, res) {
     bcrypt.hash(req.body.password, 10).then(
         (hash) =>{
@@ -25,7 +22,8 @@ export function createUser(req, res) {
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: hash,
-                phone: req.body.phone,               
+                phone: req.body.phone, 
+                address: req.body.address              
             });
 
             if(!user){
@@ -33,13 +31,26 @@ export function createUser(req, res) {
                     error: new Error('Plz enter details'),
                     message: "Plz enter details"
                 });
-            } else {
+            } else if(!user.password){
+                return res.status(401).json({
+                    error: new Error('Plz your password details'),
+                    message: "Plz your password details"
+                });
+            } 
+            else
+                    {
                 db.collection('users').insertOne(user, function (err, collection) {
                     if (err) throw err   
                     console.log(user)                 
                })
+                return res.status(201).json({
+                    user: user,
+                    success: true,
+                    userId: user._id,
+                    message: "Welcome beautiful user"
+                })
              
-                return res.redirect('/public/pages/user.html');
+                // return res.redirect('/public/pages/user.html');
               
     
             }

@@ -43,8 +43,8 @@
       </div>
 
       <div class="login-form ">
-        <form action="/api/v1/signup" method="POST" id="sign_up" class="control-group">
-          <div id="emailErr" ></div>
+        <form id="sign_up" class="control-group">
+         
           <input type="text" class="login-field" placeholder="Email" name="email" id="email">
 
           <input type="text" class="login-field"  placeholder="Frst name"  name="firstname"
@@ -69,8 +69,9 @@
               <input type="radio" id="radio-seven" name="notaswitch-one" value="maybe" />
               <label for="radio-seven">Yes</label>
               <br>
-              <input id="signupBtn" type="submit">
-              <!-- <button id="signupBtn" type="button">Create Account</button> -->
+              <!-- <input id="signupBtn" type="submit"> -->
+              <div id="emailErr" ></div>
+              <button id="signupBtn" type="button">Create Account</button>
         </form>
       </div>
     </div>

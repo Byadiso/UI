@@ -1,12 +1,13 @@
 // CONSUME SIGNUP ENDPOINT
 const signupBtn = document.getElementById('signupBtn');
-// const name = document.getElementById('username');
+const firstname = document.getElementById('firstname');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
-// const phone= document.getElementById('phone');
+const phone= document.getElementById('phone');
+const address= document.getElementById('address');
 
-const usernameErr = document.querySelector('div#usernameErr');
+// const usernameErr = document.querySelector('div#usernameErr');
 const emailErr = document.querySelector('div#emailErr');
 const passwordErr = document.querySelector('div#passwordErr');
 const password2Err = document.querySelector('div#password2Err');
@@ -38,8 +39,7 @@ function isValidPassword(value) {
 // };
 
 email.onchange = () => {
-  emailErr.innerHTML = /\S+@\S+\.\S+/.test(email.value) ? '' : 'Please enter a valid email';
-  
+  emailErr.innerHTML = /\S+@\S+\.\S+/.test(email.value) ? '' : 'Please enter a valid email';  
 //   usernameErr.innerHTML = '';
   password2Err.innerHTML = '';
 };
@@ -61,40 +61,36 @@ signupBtn.onmouseover = () => {
   }
 };
 
-
-const localhost = 'http://localhost:3000/api/v1';
-
-
-
-
-signupBtn.onclick = () => {
+signupBtn.onclick = (e) => {
+  e.preventDefault();
   if (emailErr.innerHTML !== '' || passwordErr.innerHTML !== '' || password2Err.innerHTML !== '') {
-    usernameErr.innerHTML = 'Please correct the errors in red below';
-  } else {
-    const username = name.value;
-    usernameErr.innerHTML = '';
-    const req = new Request(`${localhost}/signup`, {
+    emailErr.innerHTML = 'Please correct the errors in red below';
+  }  else if (password.value === ''|| email.value === ''|| phone.value === '' ){
+
+    emailErr.innerHTML = 'plz enter the required field ';
+  }
+  else {   
+  fetch('http://localhost:3000/api/v1/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      // mode: 'no-cors',
-      body: JSON.stringify({ username:username.value, email: email.value, password: password.value }),
-    });
-    fetch(req).then(resp => resp.json().then((res) => {
-      
-      if (res.status === 'fail') {
+      body: JSON.stringify({ 
+        firstname:firstname.value,
+        lastname:firstname.value,
+        email: email.value, 
+        password: password.value,
+        phone: phone.value,
+        address:address.value
+       }),
+    }).then(resp => resp.json().then((res) => {      
+      if (res.status === 401) {
         return password2Err.innerHTML = res.message;
       }
-      if (res.status === 'success' && res.token) {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('username', res.user.username);
-        localStorage.setItem('address', res.user.address);
-        localStorage.setItem('phone', res.user.phone);
-        localStorage.setItem('id', res.user.userid);
-
+      if (res.success === true ) {
+        let userLogged =  localStorage.setItem('user',JSON.stringify(res));
         password2Err.innerHTML = `<span style='color: greenyellow'>${res.message}</span>`;
-
+        window.location.href = '../pages/property.html';
         if (res.user.role === 'admin') {
           setTimeout(() => {
             localStorage.setItem(res.user.username, 'any');
@@ -110,7 +106,7 @@ signupBtn.onclick = () => {
       password2Err.innerHTML = err.message;
     }))
       .catch(((fetchErr) => {
-        usernameErr.innerHTML = `Error: ${fetchErr}... Offline?`;
+        emailErr.innerHTML = `Error: ${fetchErr}... Offline?`;
       }));
   }
 };

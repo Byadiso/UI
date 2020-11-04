@@ -1,3 +1,4 @@
+import { number } from 'joi';
 import mongoose from 'mongoose'
 import  uniqueValidator from 'mongoose-unique-validator'
 
@@ -23,6 +24,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    phone: {
+        type: Number,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    }
 })
 
 userSchema.plugin(uniqueValidator);
