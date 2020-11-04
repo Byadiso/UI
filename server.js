@@ -76,7 +76,7 @@ app.get('/', function (req, res) {
 
 
 // for render login
-  app.get('/login', function (req, res) {
+  app.get('/api/v1/login', function (req, res) {
     res.set({
         'Access-control-Allow-Origin': '*'
     });

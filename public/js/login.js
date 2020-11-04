@@ -21,66 +21,51 @@ loginBtn.onmouseover = () => {
   }
 };
 
-loginBtn.onclick = () => {
-  const usernameEmail = userField.value;
+loginBtn.onclick = (e) => {
+  e.preventDefault(); 
+  const email = userField.value;
   const password = passwordField.value;
-
-  if (!usernameEmail.trim() || !password.trim()) {
-    password2Err.innerHTML = 'Please fill in all fields';
-
-    return;
+  if (!email.trim() || !password.trim()) {
+    password2Err.innerHTML = '* Please fill in all fields';
     
   }
   // password2Err.innerHTML = '';
-  else if (emailErr.innerHTML !== '' || passwordErr.innerHTML !== '' || password2Err.innerHTML !== '') {
-        // usernameErr.innerHTML = 'Please correct the errors in red below';
-       password2Err.innerHTML = 'Please correct the errors in red below';
-       return;
+  // else if (usernameEmail.innerHTML !== '' || password.innerHTML !== '' || usernameEmail.innerHTML !== '') {
+  //       // usernameErr.innerHTML = 'Please correct the errors in red below';
+  //      password2Err.innerHTML = 'Please correct the errors in red below';
+  //      return;
         
-  } else {    
-        usernameErr.innerHTML = '';
-        const usernameEmail = document.getElementById('email').value;  
-    
-    fetch('http://localhost:3000/api/v1/login',{
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ usernameEmail, password }),
-    } ).then(resp => resp.json().then((res) => {      
-      if (res.success === false) {       
-        console.log(res.message)
-        return password2Err.innerHTML = res.message;
-      } else {
-        if (res.success === true) {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('firstname', res.user.firstname);
-        localStorage.setItem('lastname', res.user.lastname);
-        localStorage.setItem('phone', res.user.phone);
-        localStorage.setItem('email', res.user.email);
-        localStorage.setItem('id', res.user.userid);
-
-        password2Err.innerHTML = `<span style='color: greenyellow'>${res.message}</span>`;
-        // if (res.user.role === 'admin') {
-        //   localStorage.setItem(res.user.username, 'an');
-        //   setTimeout(() => {
-        //     window.location.href = 'admin';
-        //   }, 100);
-        //   return;
-        // }
-        // setTimeout(() => {
-        //   window.location.href = 'userMenu';
-        // }, 100);
-      }
+  // } 
+  else {  
+      fetch('http://localhost:3000/api/v1/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email:email, password: password }),
+      }).then(resp => resp.json().then((user) => {      
+    if (user.status === 'fail') {       
+    console.log(user.message)
+    return password2Err.innerHTML = user.message;
+    } else {
+    if (user.status === 'success') {
+        window.location.href = '../pages/user.html';
+        let userLogged =  localStorage.setItem('user',JSON.stringify(user));
+        console.log(userLogged);
+        console.log('wow')
+        password2Err.innerHTML = `<span style='color: greenyellow'>${user.message}</span>`;
+        }
     }
     }).catch((err) => {
       password2Err.innerHTML = err.message
       return;
     }))
-      .catch(((fetchErr) => {
-        usernameErr.innerHTML = fetchErr;
-      }));
-  }
-};
+    .catch(((fetchErr) => {
+      usernameErr.innerHTML = fetchErr;
+    }));
+    }      
+  };
+
+
 
 

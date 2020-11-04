@@ -106,8 +106,8 @@ export function createUser(req, res) {
 
 // get single User
 export function getSingleUser(req, res) {
-    const id = req.params.userId
-    User.findById(id)
+    // const id = req.params.userId
+    User.findById({ _id: req.params.id })
         .then(singleUser => {
             res.status(200).json({
                 success: true,
@@ -170,17 +170,18 @@ export function getAllUsers(req, res) {
 export function login(req, res) {
     User.findOne({ email: req.body.email}).then((user) => {
         const {email,password} = req.body
-        if (!email && !password ){
-            
+        if (!email && !password ){            
              res.status(404).json({
+                status: 'fail',
                 error:new Error('plz input your details'),
                 message: "No details entered"
                  });
                  return;     
            
         } else if(!user){
-                      
+     
               return  res.status(404).json({
+                status: 'fail',
                 error: new Error ('User not found!'),
                 message:'No email found,plz make sure you write it correctly'
 
@@ -193,25 +194,27 @@ export function login(req, res) {
                 if (!valid){ 
                     console.log(user)                 
                         return res.status(404).json({
+                        status: 'fail',
                         error: new Error('Incorrect password!'),
                         message: `${user.firstname}, please use a correct password!`,
                         
-                    });
-                    
-                     
-                } 
+                    });     
+                }  
+               
                 const token = jwt.sign(
                     { userId: user._id},
                     'RANDOM_TOKEN_SECRET',
                     { expiresIn: '24h'});
+                    
 
-             return res.redirect('/public/pages/user.html');
+            //  return res.redirect('/public/pages/user.html');
 
-                //     res.status(200).json({
-                //     userId: user._id,
-                //     token: token,
-                //     message:'Welcome beautiful user'
-                // });
+                    res.status(200).json({
+                    status: 'success',
+                    userId: user._id,
+                    token: token,
+                    message:'Welcome beautiful user'
+                });
                
               
             }

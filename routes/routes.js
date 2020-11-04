@@ -22,9 +22,11 @@ router.get('/api/v1/property/:id', getSingleProperty)
 router.put('/api/v1/property/:id', updateProperty)
 router.delete('/api/v1/property/:id', deleteProperty)
 
+// for users routes
+
 router.post('/api/v1/signup', createUser)
 router.get('/api/v1/users', getAllUsers)
-router.get('/api/v1/users/:id', getSingleUser)
+router.get('/api/v1/user/:id', getSingleUser)
 router.post('/api/v1/login', login)
 router.get('/api/v1/login',login)
 

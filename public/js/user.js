@@ -4,36 +4,42 @@ document.addEventListener('DOMContentLoaded', ()=>{
             
   // const ordersMsg = document.getElementById('header-text');  
   const usersDiv= document.getElementById('userContainer');
-   const  fetchingUsers = ( () => {
-    fetch( "http://localhost:3000/api/v1/users")
+ let userIdStored = JSON.parse(localStorage.getItem('user')).userId;
+ console.log(userIdStored)
+
+   const  fetchingUser = ( () => {
+    fetch( `http://localhost:3000/api/v1/user/${userIdStored}/`)
     .then((res) => res.json())
-    .then(users => renderUsers(users))    
+    .then(user => renderUser(user)
+       )    
  });
     
    
- function renderUsers(users){
-const storedUser = localStorage.setItem('users',JSON.stringify(users));
-console.log(storedUser);
-
-let Items = users.user;
-for ( var i= 0; i< Items.length; i++ ) {
-
+ function renderUser(user){
+   console.log(user);
+  let UserContent = user.User;
   let userCont = document.createElement('div');
   userCont.classList.add('userDetails');
+  const userHeader = document.querySelector('.header-text');
+  userHeader.textContent= `Hello, ${UserContent.firstname}`
   userCont.innerHTML = 
-   `<p id="phone"><strong>name:</strong> ${Items[i].firstname}</p>
-    <p id="address"><strong>email:</strong>${Items[i].email}</p>
-    <p id="owner"><strong>User ID:</strong> ${Items[i]._id}</p>`;  
+   `<p id="phone"><strong>name:</strong> ${UserContent.firstname}</p>
+    <p id="address"><strong>email:</strong>${UserContent.email}</p>
+    <p id="owner"><strong>User ID:</strong> ${UserContent._id}</p>`;  
   
-  usersDiv.appendChild(userCont)
-
-      }
-   }
-
-fetchingUsers();  
-
+  usersDiv.appendChild(userCont);
+  
+   // implementing logOut
+   const logOutBtn = document.querySelector('.log-out');
+   logOutBtn.addEventListener('click', ()=>{
+     console.log('plz I am out')
+   localStorage.clear();
+   window.location.href = '../pages/login.html';
 })
 
-
+      }
+  
+fetchingUser();
+});
 
                

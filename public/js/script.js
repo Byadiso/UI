@@ -271,7 +271,7 @@
               listAll();
 
               // implementing logOut
-                const logOutBtn = document.getElementsByClassName('log-out');
+                const logOutBtn = document.querySelector('.log-out');
                   logOutBtn.addEventListener('click', ()=>{
                     console.log('plz I am out')
                   localStorage.clear();
