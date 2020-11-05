@@ -14,6 +14,8 @@ dotenv.config()
 
 //create a user
 export function createUser(req, res) {
+   
+
     bcrypt.hash(req.body.password, 10).then(
         (hash) =>{
     const user = new User({
@@ -25,7 +27,11 @@ export function createUser(req, res) {
                 phone: req.body.phone, 
                 address: req.body.address              
             });
-
+           
+            const emailExist =  User.findOne({email:req.body.email})
+            
+    
+   
             if(!user){
                 return res.status(401).json({
                     error: new Error('Plz enter details'),
@@ -33,12 +39,12 @@ export function createUser(req, res) {
                 });
             } else if(!user.password){
                 return res.status(401).json({
-                    error: new Error('Plz your password details'),
-                    message: "Plz your password details"
+                    error: new Error('Plz your password is required'),
+                    message: "Plz your password is required"
                 });
-            } 
+            }         
             else
-                    {
+            {
                 db.collection('users').insertOne(user, function (err, collection) {
                     if (err) throw err   
                     console.log(user)                 
@@ -50,70 +56,12 @@ export function createUser(req, res) {
                     message: "Welcome beautiful user"
                 })
              
-                // return res.redirect('/public/pages/user.html');
-              
+                // return res.redirect('/public/pages/user.html');    
     
-            }
-       
-                    
+            }       
 
             })
         }
-
-// export function createUser(req, res) {
-//     const user = new user({
-//         _id: mongoose.Types.ObjectId(),
-//         firstname: req.body.firstname,
-//         lastname: req.body.lastname,
-//         email: req.body.email,
-//         password: req.body.password,
-//         phoneNumber: req.body.phoneNumber,
-//     })
-//     if (error) {
-//         res.status(400).send({ error: error.details[0].message })
-//     } else {
-//         // generate the id and pass it to a user
-//         const id = parseInt(myModel.Users.length) + 1
-//         const token = authentication.encodeToken({
-//             email,
-//             firstname,
-//             lastname,
-//             password,
-//             address,
-//             PhoneNumber,
-//             userId: id,
-//             status: 'Not login',
-//             isadmin: 'false',
-//         })
-//         const checkemail = myModel.userEmail(email)
-//         if (checkemail) {
-//             return server(
-//                 res,
-//                 400,
-//                 'email already exist please use another email!'
-//             )
-//         }
-//         myModel.signupuser(req.body)
-
-//         return user
-//             .save()
-//             .then(newUser => {
-//                 return res.status(201).json({
-//                     success: true,
-//                     message: 'New user created successfully',
-//                     user: newUser,
-//                 })
-//             })
-//             .catch(error => {
-//                 res.status(500).json({
-//                     success: false,
-//                     message: 'Server error. Please try again.',
-//                     error: error.message,
-//                 })
-//             })
-//     }
-// }
-
 
 // get single User
 export function getSingleUser(req, res) {

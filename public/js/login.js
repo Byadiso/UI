@@ -51,8 +51,8 @@ loginBtn.onclick = (e) => {
     if (user.status === 'success') {
         window.location.href = '../pages/user.html';
         let userLogged =  localStorage.setItem('user',JSON.stringify(user));
-        console.log(userLogged);
-        console.log('wow')
+        // console.log(userLogged);
+        // console.log('wow')
         password2Err.innerHTML = `<span style='color: greenyellow'>${user.message}</span>`;
         }
     }
