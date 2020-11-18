@@ -58,16 +58,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
           });
 
+          //for add to the cart
+          const addCartBtn= document.createElement('BUTTON');
+          addCartBtn.classList.add('btn_addCart');
+          addCartBtn.innerHTML = "Add to cart";
+          addCartBtn.style.margin = "5px 2px 5px 2px";
+          addCartBtn.addEventListener('click', ()=>{
+                console.log('yes this one is already added')
+
+                location.href='#';
+
+          });
+
+
     //for image
         const img = document.createElement("img");  
         img.src = singlePro.url; 
-        img.style.width= "770px";
-        img.style.height= "570px";
+        img.style.width= "570px";
+        img.style.height= "670px";
         img.classList.add('imgCreated');
 
         mainSingleDiv.append(img);
         mainSingleDiv.append(deleteBtn);
         mainSingleDiv.append(modifyBtn);
+        mainSingleDiv.append(addCartBtn);
         
         
               

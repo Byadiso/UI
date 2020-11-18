@@ -463,6 +463,7 @@ box-shadow: none;
   height: 200px; 
   border-radius: 5px;
   border: 1px solid white;
-  margin: 5px;
+  
+  margin-left: 550px;
   background-color:rgba(222,222,222, 0.4);
 }

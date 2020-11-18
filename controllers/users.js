@@ -258,9 +258,9 @@ export function resetpassword(req, res) {
     if (error) {
         res.status(400).send({ error: error.details[0].message })
     } else {
-        const getuser = model.userEmail(email)
+        const getuser = User.userEmail(email)
         if (getuser) {
-            getuser.password = model.setPassword(newpassword)
+            getuser.password = User.setPassword(newpassword)
             return server(res, 201, 'password updated  succesfully')
         }
         return server(res, 400, "can't find user with that email")

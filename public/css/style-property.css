@@ -207,6 +207,7 @@ margin-bottom: 10px;
   width:auto;
   /* margin-left: 20px; */
   cursor: pointer;
+  margin: 20px;
 }
 
 
@@ -224,6 +225,7 @@ margin-bottom: 10px;
   transition: 0.25s;
   display: inline;
   width: auto;
+  margin: 20px;
   /* margin: 0 20px; */
   cursor: pointer;
 
@@ -242,7 +244,8 @@ margin-bottom: 10px;
   transition: 0.25s;
   display: inline;
   width:250px; 
-  
+  margin: 30px;
+  margin-left:5px;  
   cursor: pointer;
 }
   a{
@@ -386,7 +389,7 @@ margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid white;
     margin-left: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     background-color:rgba(222,222,222, 0.4);
    
   }
@@ -543,4 +546,7 @@ display:none
   border: 1px solid white;
   border-radius: 40px;
   width: 500px;
+}
+#myProperties{
+  margin: 40px;
 }

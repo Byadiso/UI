@@ -289,6 +289,22 @@ h3{
   width:auto;
   margin: 0 auto;
 }
+.btn_addCart {
+  border: 2px solid white;
+  background: rgba(7, 139, 78, 0.705);
+  color: #ffffff;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 7px 7px 7px 7px;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: inline;
+  width:auto;
+  margin: 0 auto;
+}
 
 
 /*filter for advert*/
