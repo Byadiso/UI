@@ -169,6 +169,26 @@ box-shadow: none;
     margin-top: 12px;
 }
 
+
+/*  
+for cart */
+
+.cart-btn {
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.cart-items {
+  position: absolute;
+  top: 4px;
+  right: -6px;
+  background: #f09d51;
+  padding: 0 5px;
+  border-radius: 30%;
+  color: #fff;
+}
+
+
 /* for errrors */
 
 #usernameErr, #emailErr, #passwordErr, #password2Err{

@@ -65,6 +65,23 @@ font-weight: 200;
 .topnav .login-container {
   float: right;
 }
+/*  
+for cart */
+
+.cart-btn {
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.cart-items {
+  position: absolute;
+  top: 4px;
+  right: -6px;
+  background: #f09d51;
+  padding: 0 5px;
+  border-radius: 30%;
+  color: #fff;
+}
 
 #post{
   

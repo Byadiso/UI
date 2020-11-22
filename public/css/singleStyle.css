@@ -35,3 +35,22 @@ margin:0;
   width: 150px;
   width: 100px;
 }
+
+
+
+.btn_addCart {
+  border: 2px solid white;
+  background: rgb(219, 52, 66);
+  color: #ffffff;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 7px 7px 7px 7px;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: inline;
+  width:auto;
+  margin: 0 auto;
+}
