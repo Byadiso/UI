@@ -4,7 +4,8 @@
     
           
           const ordersMsg = document.getElementById('header-text');  
-          const mainDiv = document.getElementById('myProperties');           
+          const mainDiv = document.getElementById('myProperties');  
+          let properties = []         
                   
           //funciton to fetch data       
         const listAll = () =>{
@@ -23,7 +24,7 @@
               console.log(dataPro);
               ordersMsg.className = 'err';
               ordersMsg.innerHTML = dataPro.message;
-              const properties= dataPro.Property;                  
+               properties= dataPro.Property;                  
               for ( var i= 0; i< properties.length; i++ ){            
                 let  divprop= document.createElement("DIV"); 
                 // fr shor notation is hte best
@@ -268,7 +269,7 @@
               }            
                    
               
-              listAll();
+              // listAll();
 
               // implementing logOut
                 const logOutBtn = document.querySelector('.log-out');
@@ -277,6 +278,25 @@
                   localStorage.clear();
                   window.location.href = '../pages/login.html';
               })
+
+              //implementing search bar
+
+              const searchBar = document.getElementById('searchBar');
+              searchBar.addEventListener('keyup',(e)=>{
+                    const searchString = e.target.value.toLowerCase();
+                   
+                    const filtredPro = properties.filter((property) =>{
+                     return (
+                          property.owner.toLowerCase().includes(searchString) ||
+                          property.state.toLowerCase().includes(searchString) ||
+                          property.city.toLowerCase().includes(searchString)
+                        )
+                    })
+                    console.log(filtredPro)
+                    // listAll(filtredPro)
+                    // listAll(filtredPro)
+              })
+               listAll();
       
           })
           
