@@ -94,12 +94,12 @@ signupBtn.onclick = (e) => {
         if (res.user.role === 'admin') {
           setTimeout(() => {
             localStorage.setItem(res.user.username, 'any');
-            window.location.href = 'admin';
+            window.location.href = '../pages/property.html';
           }, 100);
           return;
         }
         setTimeout(() => {
-          window.location.href = 'userMenu';
+          window.location.href = '../pages/property.html';
         }, 100);
       }
     }).catch((err) => {

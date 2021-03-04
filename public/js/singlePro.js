@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
           //for add to the cart
           const addCartBtn= document.createElement('BUTTON');
           addCartBtn.classList.add('btn_addCart');
-          addCartBtn.innerHTML = "Add to cart";
+          addCartBtn.classList.add('bag-btn');
+          addCartBtn.innerHTML = `<i class="fas fa-shopping-cart"></i> Add to cart`;
           addCartBtn.style.margin = "5px 2px 5px 2px";
           addCartBtn.addEventListener('click', ()=>{
                 console.log('yes this one is already added')

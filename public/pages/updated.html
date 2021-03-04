@@ -42,6 +42,9 @@
     <div class="login-screen">
 
       <div class="login-form">
+        <div class="app-title">
+                <h1>Update your property</h1>
+        </div>
 
         <form action="/api/v1/property/:id" method="PUT" id="updated" class="control-group">
 
@@ -53,11 +56,10 @@
             id="phone">
           <input type="text" class="login-field" value="" placeholder="Address" type="text" name="address"
             id="address">
-          <input type="url" class="login-field" value="" placeholder="url" type="url" name="url" id="url">
-          <!-- <input type="text" class="login-field" value="" placeholder="dateCreated" type="text" name="dateCreated"
-            id="login-pass"> -->
-          <br>
-          <input type="submit"  id="submitUpdates">
+          <input type="file"  accept="image/*" class="login-field" value="" name="url" id="fileUpload">
+         
+          
+          <input type="submit"  id="submitUpdates " class="submitBtn login-field">
         </form>
 
       </div>

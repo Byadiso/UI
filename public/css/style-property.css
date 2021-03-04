@@ -265,6 +265,28 @@ margin-bottom: 10px;
   margin-left:5px;  
   cursor: pointer;
 }
+.btnSearch{
+  border: 2px solid white;
+  background: rgba(50, 80, 163, 0.459);
+  color: #ffffff;
+  font-size: 17px;
+  line-height: 25px;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: inline;
+  width:100px; 
+  margin: 30px;
+  margin-left:5px;  
+  cursor: pointer;
+}
+
+
+
+
+
   a{
   text-decoration-style: none;
 }

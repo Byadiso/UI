@@ -79,13 +79,16 @@ width: 600px;
 }
 .login-screen {
 background-color: #FFF;
-padding: 20px;
-border-radius: 5px
+padding-bottom: 70px;
+padding-top: 10px;
+border-radius: 5px;
+height: 100%;
 }
 
 .app-title {
 text-align: center;
 color: #777;
+font-size: 15px;
 }
 
 .login-form {
@@ -212,6 +215,24 @@ for cart */
   font-size: 13px;
   }
 
+  .submitBtn{
+    margin-left: 130px;
+    margin-bottom: 20px;
+    padding: 7px;
+    display: block;
+    align-items: center;
+    float: left;
+    background-color: #2980B9;
+    color: white;
+  }
+
+
+/* 
+  for hidding register form  and login */
+
+  .hide{
+    display: none;
+  }
   
 
 @media screen and (max-width: 600px) {

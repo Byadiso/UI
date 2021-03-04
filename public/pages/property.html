@@ -6,7 +6,7 @@
          <!-- <link rel="stylesheet" href="../css/style.css"> -->
          <title> PropertyPro LITE</title>
          <link rel="icon" type="image/ico" href="../image/bar-icon.png" />
-         <script  type="module" src="../js/script.js"></script>
+         <script  type="module" src="../js/script.js" defer></script>
 
          <!-- for fonts -->
          <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
@@ -58,9 +58,10 @@
                                 <input type="checkbox" name="all" id="all_property">
                                 <label for="all"><strong> Electronics </strong></label>
                         </div>
-                        <div class="searchBar">
-                                <input type="text" name="searchBar" id="searchBar" placeholder="search for a propery">
-                        </div>
+                        <form class="searchBar" method="GET" action="/api/v1/property">
+                                <input type="text" name="search" id="searchBar" placeholder="search for a propery">
+                                <input type="submit" value="Search" class="btnSearch">
+                        </form>
                         
                 </div>
                       

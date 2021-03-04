@@ -14,41 +14,34 @@ dotenv.config()
 
 //create a user
 export function createUser(req, res) {
-   
-
-    bcrypt.hash(req.body.password, 10).then(
+       bcrypt.hash(req.body.password, 10).then(
         (hash) =>{
+            const { firstname, lastname, email, phone, address} = req.body
     const user = new User({
                 _id: mongoose.Types.ObjectId(),
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
+                firstname,
+                lastname,
+                email,
                 password: hash,
-                phone: req.body.phone, 
-                address: req.body.address              
+                phone, 
+                address              
             });
            
-            const emailExist =  User.findOne({email:req.body.email})
+            // const emailExist =  User.findOne({email: req.body.email})
             
     
    
-            if(!user){
+            if(!user | !user.password ){
                 return res.status(401).json({
-                    error: new Error('Plz enter details'),
-                    message: "Plz enter details"
+                    error: new Error('Please Enter correctly your details'),
+                    message: "Please Enter correctly your details"
                 });
-            } else if(!user.password){
-                return res.status(401).json({
-                    error: new Error('Plz your password is required'),
-                    message: "Plz your password is required"
-                });
-            }         
-            else
-            {
+            } else {
                 db.collection('users').insertOne(user, function (err, collection) {
                     if (err) throw err   
                     console.log(user)                 
-               })
+               });
+
                 return res.status(201).json({
                     user: user,
                     success: true,
@@ -132,7 +125,7 @@ export function login(req, res) {
         if (!email && !password ){            
              res.status(404).json({
                 status: 'fail',
-                error:new Error('plz input your details'),
+                error:new Error('Please input your details'),
                 message: "No details entered"
                  });
                  return;     
@@ -142,7 +135,7 @@ export function login(req, res) {
               return  res.status(404).json({
                 status: 'fail',
                 error: new Error ('User not found!'),
-                message:'No email found,plz make sure you write it correctly'
+                message:'No email found,please make sure you write it correctly'
 
             });
         }

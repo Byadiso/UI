@@ -1,7 +1,9 @@
 
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost:27017/User',{ useNewUrlParser: true ,  useUnifiedTopology: true })
+
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://localhost:27017/User',{ useNewUrlParser: true ,  useUnifiedTopology: true,  })
 var db = mongoose.connection
 db.on('error', console.log.bind(console, 'connection error'))
 db.once('open', function (callback) {
@@ -9,5 +11,5 @@ db.once('open', function (callback) {
 })
 
 
-export default db
+export default db;
 

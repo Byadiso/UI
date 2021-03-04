@@ -28,15 +28,7 @@ loginBtn.onclick = (e) => {
   if (!email.trim() || !password.trim()) {
     password2Err.innerHTML = '* Please fill in all fields';
     
-  }
-  // password2Err.innerHTML = '';
-  // else if (usernameEmail.innerHTML !== '' || password.innerHTML !== '' || usernameEmail.innerHTML !== '') {
-  //       // usernameErr.innerHTML = 'Please correct the errors in red below';
-  //      password2Err.innerHTML = 'Please correct the errors in red below';
-  //      return;
-        
-  // } 
-  else {  
+  } else {  
       fetch('http://localhost:3000/api/v1/login', {
         method: 'POST',
         headers: {
@@ -53,7 +45,7 @@ loginBtn.onclick = (e) => {
         let userLogged =  localStorage.setItem('user',JSON.stringify(user));
         // console.log(userLogged);
         // console.log('wow')
-        password2Err.innerHTML = `<span style='color: greenyellow'>${user.message}</span>`;
+        password2Err.innerHTML = `<span style='color: green yellow'>${user.message}</span>`;
         }
     }
     }).catch((err) => {

@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
+
 app.use(router);
 
 // set header
@@ -32,11 +33,20 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use(express.static(__dirname))
+app.use(express.static(__dirname));
+
+
+// for outputting error details 
+
+app.use(function (err, req, res, next) {
+    console.log('This is the invalid field ->', err.field)
+    next(err)
+  })
 
 // set static pages
 
 app.use(express.static('public/pages'))
+// app.set('view engine', 'html');
 
 // set up route
 

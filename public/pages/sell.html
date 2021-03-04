@@ -46,20 +46,18 @@
       <div class="login-form">
 
         <form action="/api/v1/property" method="POST" id="sell" class="control-group">
-
-          <input type="text" class="login-field" value="" placeholder="owner" type="text" name="owner" id="login-name">
-          <input type="text" class="login-field" value="" placeholder="price" type="text" name="price" id="login-name">
-          <input type="text" class="login-field" value="" placeholder="state" type="text" name="state" id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="city" type="text" name="city" id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="phone" type="number" name="phone"
-            id="login-pass">
-          <input type="text" class="login-field" value="" placeholder="Address" type="text" name="address"
-            id="login-pass">
-          <input type="url" class="login-field" value="" placeholder="url" type="url" name="url" id="login-pass">
-          <!-- <input type="text" class="login-field" value="" placeholder="dateCreated" type="text" name="dateCreated"
-            id="login-pass"> -->
-          <br>
-          <input type="submit" submit="fetchUserData()" id="submit">
+ 
+            <input type="text" class="login-field" placeholder="owner"  name="owner" id="owner"> 
+            <input type="text" class="login-field"  placeholder="price"  name="price" id="price">
+            <input type="text" class="login-field" placeholder="state"  name="state" id="state">
+            <input type="text" class="login-field"  placeholder="city"  name="city"  id="city">
+            <input type="text" class="login-field"  placeholder="phone"  name="phone" id="phone">
+            <input type="text" class="login-field"  placeholder="Address" type="text" id="address" name="address"
+              >
+            <input type="file" accept="image/*" class="login-field"   name="url" id="fileUpload">
+          
+         <br>
+          <input type="submit"  class="submitBtn login-field " id="create_pro"> 
         </form>
 
       </div>
@@ -76,5 +74,6 @@
 
 
 </body>
+<script src="../js/createPro.js"></script>
 
 </html>
